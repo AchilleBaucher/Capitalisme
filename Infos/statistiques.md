@@ -3,7 +3,7 @@
 ##Scandales
 	
 ###Quick:
-*Tête de poulet frit / 25/04/2016
++Tête de poulet frit / 25/04/2016
 *Adolescent mort de son repas / 18/02/2011
 *Scandale sanitaire / 18/12/2015
 *Souris dans un fast food/ 3/05/2012 
