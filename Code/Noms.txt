@@ -7,7 +7,8 @@ coutImplantation #coût d’implantation d’un restaurant: 800 000 euros
 
 Variables:
 
-carte{ville:{“revMo”:revMo,”nbHab”:nbHab,”nbConso”:nbConso, “Mcdo”:nbMcdo,”Quick”:nbQuick,”Surface”:surface}}
+carte{ville:{“revMo”:revMo,”nbHab”:nbHab,”nbConso”:nbConso, “Mcdo”:nbMcdo,”Quick”:nbQuick,”Rsurface”:Rsurface}}
+Rsurface: #Racine carree de la surface
 nbHab #Nombre d’habitants d’une ville
 revMo #Revenu moyen d’une ville
 profit #Bénéfice d’un restaurant ce mois-ci
