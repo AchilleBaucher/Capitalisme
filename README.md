@@ -1,7 +1,8 @@
 # Capitalisme
 Are
-#Alors
-Tout ce qu'utilise le code est dans Code et les données, statistiques et renseignemnts sont dans Infos
+#Déjà
+Tout ce qu'utilise le code est dans Code et les données, statistiques et renseignemnts sont dans Infos 
+#Ensuite
 Pour enregistrer vos modifs faites Commit Changes en bas
 
 # Mode d'emploi sous Linux
