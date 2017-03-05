@@ -1,0 +1,31 @@
+
+Données:
+
+Tirelire #Pourcentage des bénéfices qu’utilisera le siège: 80%
+coutPub #coût d’une campagne de publicité
+coutImplantation #coût d’implantation d’un restaurant: 800 000 euros
+
+Variables:
+
+carte{ville:{“revMo”:revMo,”nbHab”:nbHab,”nbConso”:nbConso, “Mcdo”:nbMcdo,”Quick”:nbQuick,”Surface”:surface}}
+nbHab #Nombre d’habitants d’une ville
+revMo #Revenu moyen d’une ville
+profit #Bénéfice d’un restaurant ce mois-ci
+score #Score d’une ville qui calcule si il est avantageux de mettre un restaurant dedans
+nbClients #Nombre de clients par mois
+popularite #Popularité d’une marque
+prixM #Prix moyen des menus vendus par Mcdonald's
+prixQ #Prix moyen des menus vendus par Quick
+dicScores: dictionnaire des scores des villes
+dicProfits: dictionnaire des profits des restos
+coutMenuM: coût d’un menu pour le resto : ⅓
+coutMenuQ: coût d’un menu pour le resto : ⅓
+coutEntretien: coût de l’entretien
+
+Fonctions:
+
+Demande: (int: revMo, int: nbHab, float: pref, int: pop, list(resto): autresrestos, int: prix) ---------> int: nbConso
+Profit: (int: nbComso, int: prix) → int: profit
+Score:Simulation de Demande avec un restaurant en plus, renvoie un score
+Decision:  marque, dict: dicScores, dict:dicProfits, int:pop, float: pref --->  decisions
+Action!: applique les décisions
