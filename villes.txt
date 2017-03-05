@@ -1,8 +1,8 @@
 Paris12,40660,144719
 Paris13,36590,183260
 Paris20,32160,198042
-Paris11,36710,154647 
-Paris16,83550,169942 
+Paris11,36710,154647
+Paris16,83550,169942
 Paris17,52570,170174
 Paris1,58330, 17443
 Paris14,43000,140317
@@ -12,7 +12,7 @@ Paris5,53190,60800
 Paris4,51710,27887
 Paris7,94570,57786
 Paris6,79130,43880
-Paris9,48850,60120 
+Paris9,48850,60120
 Paris8,86800,40589
 Paris19,32220,186090
 Paris18,31520,203127
@@ -52,7 +52,7 @@ Chessy,40956,4842
 Nangis,21120,8549
 Issy-les-Moulineux,40764,67360
 La Ferté-sous-Jouarre,22488,9612
-Noisy-le-grand,26064,64 619
+Noisy-le-grand,26064,64619
 Saint-Germain-en-Laye,42480,39540
 La Celle-saint-Cloud,48120,21275
 Rosny-sous-Bois,23364,44448
@@ -64,12 +64,12 @@ Plaisir,38008,31753
 Palaiseau,36644,32461
 Mantes-la-Jolie,24500,44985
 RPZ Sarcelles,25548,56828
-Le Perray-en-Yvelines,35760,6734 
+Le Perray-en-Yvelines,35760,6734
 Montereau-Fault-Yonne,16536,18339
 Dammartin-en-Goele,30540,8868
 Serris,38244,7595
-Bombon,28944,890
+Bombon,28944,8900
 Bretigny-sur-orge,35856,23334
-Avons,,13930
+Avons,30000,13930
 Saint-maur-des-fosses,40428,75285
 Nanterre,36123,93509

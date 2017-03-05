@@ -1,5 +1,5 @@
 #Fabriquation du dictionnaire des villes
-fichier = open("nomdufichier.txt")
+fichier = open("villes.txt")
 liste_lignes = fichier.readlines()
 carte = dict()
 for ligne in liste_lignes:
@@ -12,7 +12,7 @@ for ligne in liste_lignes:
 fichier.close()
 for i in carte:
 	carte[i]["rev"] = int(carte[i]["rev"])//12
-#total c'est le ditctionnaire des villes
+#carte c'est le ditctionnaire des villes
 
 
 #CLASSES
@@ -42,13 +42,13 @@ def profit(nbConso, prix,coutMenu,coutEntretien):
 	return nbConso*(prix-coutMenu) - coutEntretien
     
 def score(carte,marque,ville,pref,pop,prix):
- 	 """Calcule la quantité de consommations si on implantait un restaurant ici"""
+ 	"""Calcule la quantite de consommations si on implantait un restaurant ici"""
 	newVille = ville
 	if ville[marque] == 0:
-    	newVille = 1
+		newVille[mrque] =1
 	else:
-    	newVille[marque] +=1
-	return fonctionDemande(newVille,LERESTE!!!!!!!!!!!!!!!)
+		newVille[marque] +=1
+	return fonctionDemande(carte,newVille,pref,pop,prix)
 
 def etude(carte, coutMenuM,coutMenuQ, coutEntretien, pop, pref, prixM,prixQ ):
 	"Renvoie pour chaque ville son profit et son score"""
@@ -56,12 +56,12 @@ def etude(carte, coutMenuM,coutMenuQ, coutEntretien, pop, pref, prixM,prixQ ):
 	dicScoreM = dict()
 	dicScoreQ = dict()
 	for ville in carte:
-    	dicScoreM[ville] = score(carte,"Mcdo",ville,pref, pop, prix)
-    	dicScoreQ[ville] = score(carte,"Quick",ville,pref, pop, prix)
-    	dicProfitM[ville] = profit(ville["nbConso"], prixM,coutMenuM,coutEntretien)*(ville["Mcdo"])
-    	dicProfitQ[ville] = profit(ville["nbConso"], prixQ,coutMenuQ,coutEntretien)*(ville["Quick"])
+		dicScoreM[ville] = score(carte,"Mcdo",ville,pref, pop, prix)
+		dicScoreQ[ville] = score(carte,"Quick",ville,pref, pop, prix)
+		dicProfitM[ville] = profit(ville["nbConso"], prixM,coutMenuM,coutEntretien)*(ville["Mcdo"])
+		dicProfitQ[ville] = profit(ville["nbConso"], prixQ,coutMenuQ,coutEntretien)*(ville["Quick"])
 	return (dicScoreM, dicScoreQ, dicProfitM, dicProfitQ)
 
 def decision(carte, pop, pref, dicScoreM, dicScoreQ, dicProfitM, dicProfitQ):
-	"""Renvoie la décicsion mensuelle des sieges"""
+	"""Renvoie la decicsion mensuelle des sieges"""
 
