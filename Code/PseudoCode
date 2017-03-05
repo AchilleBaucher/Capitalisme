@@ -1,0 +1,23 @@
+Une itération T correspond à un mois.
+Itération T:
+-Pour ville dans CARTE:
+-calcul de la demande avec la fonction Demande
+-calcul des profits obtenus ce mois-ci avec fonction Profit et l’ajoute au dictionnaire dicProfit
+	-calcul d’un “score” qui estime si il est avantageux d’implanter un restaurant dans cette ville. avec la fonction Score et on l’ajoute au dicScore
+
+-Pour les sièges sociaux Quick puis mcDonald’s:
+	-Prise de décision avec la fonction Decision
+-Implantation dans la ville avec le meilleur score
+-Publicité
+-Changement de prix
+-Fermeture de restaurants
+-action avec Action! (mise à jour du dictionnaire des villes)
+Fin itération T
+
+
+Affichage:
+Graphique du nb de mc do et quick en fonction du temps
+	       du profit en fonction du temps
+	       de la demande
+Graphiques compliqués:
+	stats en fonction des variables
