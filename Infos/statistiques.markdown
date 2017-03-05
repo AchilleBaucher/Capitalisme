@@ -3,9 +3,9 @@
 ##Scandales
 	
 ###Quick:
-1.1Tête de poulet frit / 25/04/2016
-1.2Adolescent mort de son repas / 18/02/2011
-1.3*Scandale sanitaire / 18/12/2015
+Tête de poulet frit / 25/04/2016
+Adolescent mort de son repas / 18/02/2011
+*Scandale sanitaire / 18/12/2015
 *Souris dans un fast food/ 3/05/2012 
 *Hamburger halal/ 17/02/2010
 *Intoxications alimentaires/ 16/05/2011
