@@ -13,6 +13,21 @@ fichier.close()
 for i in carte:
 	carte[i]["rev"] = int(carte[i]["rev"])//12
 #total c'est le ditctionnaire des villes
+#CLASSES
+
+class Restaurant:
+	def __init__(self,marque,ville):
+		self.marque = marque
+		self.ville = ville
+		self.conso = conso
+		
+class Siege:
+	def __init__(self,coutEntretien,marque,popularite,prixMenu,prixOuverture):
+		self.marque = marque
+		self.pop = popularite
+		self.prixOuv = prixOuverture
+		self.prixMen = prixMenu
+		self.coutEnt = coutEntretien
 
 #FONCTIONS
 def fonctionDemande(carte,ville,pref,pop,prix):
@@ -33,25 +48,8 @@ def score(carte,marque,ville,pref,pop,prix):
     	newVille[marque] +=1
 	return fonctionDemande(newVille,LERESTE!!!!!!!!!!!!!!!)
 
-
-class Restaurant:
-	def __init__(self,marque,ville):
-		self.marque = marque
-		self.ville = ville
-		self.conso = conso
-		
-class Siege:
-	def __init__(self,coutEntretien,marque,popularite,prixMenu,prixOuverture):
-		self.marque = marque
-		self.pop = popularite
-		self.prixOuv = prixOuverture
-		self.prixMen = prixMenu
-		self.coutEnt = coutEntretien
-	
-
-
-#CODE
 def etude(carte, coutMenuM,coutMenuQ, coutEntretien, pop, pref, prixM,prixQ ):
+	"Renvoie pour chaque ville son profit et son score"""
 	dicProfit = dict()
 	dicScoreM = dict()
 	dicScoreQ = dict()
@@ -63,4 +61,5 @@ def etude(carte, coutMenuM,coutMenuQ, coutEntretien, pop, pref, prixM,prixQ ):
 	return (dicScoreM, dicScoreQ, dicProfitM, dicProfitQ)
 
 def decision(carte, pop, pref, dicScoreM, dicScoreQ, dicProfitM, dicProfitQ):
+	"""Renvoie la décicsion mensuelle des sieges"""
 
