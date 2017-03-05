@@ -65,3 +65,4 @@ def etude(carte, coutMenuM,coutMenuQ, coutEntretien, pop, pref, prixM,prixQ ):
 def decision(carte, pop, pref, dicScoreM, dicScoreQ, dicProfitM, dicProfitQ):
 	"""Renvoie la decicsion mensuelle des sieges"""
 
+a= "jvcvcvlcvavvce"
