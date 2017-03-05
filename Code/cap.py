@@ -34,7 +34,14 @@ class Siege:
 #FONCTIONS
 def fonctionDemande(carte,ville,pref,pop,prix):
 	"""Retourne le benefice en fonction des infos sur la ville"""
-	nb = "jaa"
+	dicVille = carte[ville]
+	Nm = dicVille["McDo"]
+	Nk = dicVille["Quick"]
+	Pm = dicVille["PrixM"]
+	Pk = dicVille["PrixQ"]
+	S = dicVille["Surface"]
+	
+
 	return nb
     
 def profit(nbConso, prix,coutMenu,coutEntretien):
