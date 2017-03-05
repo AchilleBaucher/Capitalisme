@@ -1,5 +1,11 @@
 #Ici sont les statistques
 
+##Données
+
+![Evo](http://mfs0.cdnsw.com/fs/Root/3hcm0-evolution_graphique.png "Evolution")
+* Un mcDo pour 53000 personnes en france
+* 90% de franchises
+
 ##Scandales
 	
 ###Quick:
@@ -19,8 +25,3 @@
 * Fabrication de frites/ 10/03/2015
 * Mc Do ne paye pas ses impots/ 26/02/2015
 * Souris dans un magasin  
-
-
-##Données
-
-![Evo](http://mfs0.cdnsw.com/fs/Root/3hcm0-evolution_graphique.png "Evolution")
