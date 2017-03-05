@@ -17,13 +17,15 @@ for i in carte:
 #FONCTIONS
 def fonctionDemande(carte,ville,pref,pop,prix):
 	"""Retourne le benefice en fonction des infos sur la ville"""
+	nb = "jaa"
+	return nb
     
 def profit(nbConso, prix,coutMenu,coutEntretien):
-  """"Retourne le profit du restaurant ce moi-ci"""
+  	""""Retourne le profit du restaurant ce moi-ci"""
 	return nbConso*(prix-coutMenu) - coutEntretien
     
 def score(carte,marque,ville,pref,pop,prix):
-  """Calcule la quantité de consommations si on implantait un restaurant ici"""
+ 	 """Calcule la quantité de consommations si on implantait un restaurant ici"""
 	newVille = ville
 	if ville[marque] == 0:
     	newVille = 1
@@ -34,15 +36,18 @@ def score(carte,marque,ville,pref,pop,prix):
 
 class Restaurant:
 	def __init__(self,marque,ville):
-    	self.marque = marque
-    	self.ville = ville
-   	 
-	def clients(self, carte):
-   	 
-   	 
+		self.marque = marque
+		self.ville = ville
+		self.conso = conso
+		
 class Siege:
-	def __init__(self,marque):
-    	self.marque = marque
+	def __init__(self,coutEntretien,marque,popularite,prixMenu,prixOuverture):
+		self.marque = marque
+		self.pop = popularite
+		self.prixOuv = prixOuverture
+		self.prixMen = prixMenu
+		self.coutEnt = coutEntretien
+	
 
 
 #CODE
