@@ -8,11 +8,13 @@ for ligne in liste_lignes:
 	carte[a] = {"rev":b}
 #a ville
 #b revenu
-#c nb hab
+#c nombre d'habitants
 fichier.close()
 for i in carte:
 	carte[i]["rev"] = int(carte[i]["rev"])//12
 #total c'est le ditctionnaire des villes
+
+
 #CLASSES
 
 class Restaurant:
