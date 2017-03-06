@@ -44,7 +44,7 @@ def fonctionDemande(carte,ville,pref,pop,prix):
 	dM = S/Nm
 	dK = S/Nk
 
-"""    pour la fonction demande:
+"""    Pour la fonction demande:
 qm(t)=Q(t-1)*(sqrt(Pk)+1.5)/(pm+1)           
 qk(t)=Q(t-1)*(sqrt(Pm)+1.5)/(pk+1)
 pk=pvk+w*(sqrt(S)/nk)
