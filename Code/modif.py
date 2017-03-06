@@ -23,7 +23,7 @@ fichier = open("villes.txt")
 liste_lignes = fichier.readlines()
 new_liste = []
 for i in liste_lignes:
-	a = i[:-3]
+	a = i[:-2]
 	new_liste.append(a)
 fichier.close()
 print(new_liste[0])
