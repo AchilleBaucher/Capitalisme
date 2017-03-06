@@ -1,3 +1,4 @@
+import math
 #Fabriquation du dictionnaire des villes
 fichier = open("villes.txt")
 liste_lignes = fichier.readlines()
@@ -40,7 +41,21 @@ def fonctionDemande(carte,ville,pref,pop,prix):
 	Pm = dicVille["PrixM"]
 	Pk = dicVille["PrixQ"]
 	S = dicVille["Surface"]
-	
+	dM = S/Nm
+	dK = S/Nk
+
+"""    pour la fonction demande:
+qm(t)=Q(t-1)*(sqrt(Pk)+1.5)/(pm+1)           
+qk(t)=Q(t-1)*(sqrt(Pm)+1.5)/(pk+1)
+pk=pvk+w*(sqrt(S)/nk)
+pm=pvm+w*(sqrt(S)/nm)
+w poids du transport dans le cout total
+pvk=pvm prix de vente 
+Contrainte de revenu
+pk*qk+pm*qm=R
+R part de revenu par fast food=3 pourcents du revenu total
+Q=qk+qm (demande totale)
+donc Q(t)=qm(t)+((R-pm*qm(t))/pk)"""
 
 	return nb
     
