@@ -1,75 +1,75 @@
-Paris12,40660,144719
-Paris13,36590,183260
-Paris20,32160,198042
-Paris11,36710,154647
-Paris16,83550,169942
-Paris17,52570,170174
-Paris1,58330, 17443
-Paris14,43000,140317
-Paris3,48040,36120
-Paris2,44720,22927
-Paris5,53190,60800
-Paris4,51710,27887
-Paris7,94570,57786
-Paris6,79130,43880
-Paris9,48850,60120
-Paris8,86800,40589
-Paris19,32220,186090
-Paris18,31520,203127
-Paris10,35690,94027
-Saint-Denis,26940,110733
-Boulogne-Billancourt,39865,114205
-Versailles,42200,85461
-Creteil,36912 ,91042
-Neuilly-Sur-Seine,57828,62075
-Cergy,30464,62979
-Rambouillet,36696,25755
-Meaux,26016,53526
-Evry,26880,52349
-Orsay,48576,16385
-Melun,24144,40011
-Etampes,25112,24503
-Goussainville,29884,31442
-Poissy,32467,36994
-Villepinte,31878 ,35864
-Coulommiers,24360,14889
-Claye-Souilly,39463,11841
-Brie-Comte-Robert,38789,16563
-Dourdan,30789,10507
-Gretz-Armainvilliers,25216,8578
-Thoiry,48544,1334
-L’Isle-Adam,37519,11804
-Claye-Souilly,39963,11841
-Magny-en-Vexin,31451,5574
-Les Mureaux,27950,31647
-Limay,30496,16144
-Montereau-Fault-Yonne,23103,18339
-Provins,22332, 11736
-Nemours,22900,22952
-Guyancourt,38148,37728
-Elancourt,39864,36750
-Chessy,40956,4842
-Nangis,21120,8549
-Issy-les-Moulineux,40764,67360
-La Ferté-sous-Jouarre,22488,9612
-Noisy-le-grand,26064,64619
-Saint-Germain-en-Laye,42480,39540
-La Celle-saint-Cloud,48120,21275
-Rosny-sous-Bois,23364,44448
-Franconville,34272,34014
-Gonesse,28752,26020
-Villiers-sur-Marne,39840,28278
-Torcy,32148,23609
-Plaisir,38008,31753
-Palaiseau,36644,32461
-Mantes-la-Jolie,24500,44985
-RPZ Sarcelles,25548,56828
-Le Perray-en-Yvelines,35760,6734
-Montereau-Fault-Yonne,16536,18339
-Dammartin-en-Goele,30540,8868
-Serris,38244,7595
-Bombon,28944,8900
-Bretigny-sur-orge,35856,23334
-Avons,30000,13930
-Saint-maur-des-fosses,40428,75285
-Nanterre,36123,93509
+Paris12,40660,14471,
+Paris13,36590,18326,
+Paris20,32160,19804,
+Paris11,36710,15464,
+Paris16,83550,16994,
+Paris17,52570,17017,
+Paris1,58330, 1744,
+Paris14,43000,14031,
+Paris3,48040,3612,
+Paris2,44720,2292,
+Paris5,53190,6080,
+Paris4,51710,2788,
+Paris7,94570,5778,
+Paris6,79130,4388,
+Paris9,48850,6012,
+Paris8,86800,4058,
+Paris19,32220,18609,
+Paris18,31520,20312,
+Paris10,35690,9402,
+Saint-Denis,26940,11073,
+Boulogne-Billancourt,39865,11420,
+Versailles,42200,8546,
+Creteil,36912 ,9104,
+Neuilly-Sur-Seine,57828,6207,
+Cergy,30464,6297,
+Rambouillet,36696,2575,
+Meaux,26016,5352,
+Evry,26880,5234,
+Orsay,48576,1638,
+Melun,24144,4001,
+Etampes,25112,2450,
+Goussainville,29884,3144,
+Poissy,32467,3699,
+Villepinte,31878 ,3586,
+Coulommiers,24360,1488,
+Claye-Souilly,39463,1184,
+Brie-Comte-Robert,38789,1656,
+Dourdan,30789,1050,
+Gretz-Armainvilliers,25216,857,
+Thoiry,48544,133,
+L’Isle-Adam,37519,1180,
+Claye-Souilly,39963,1184,
+Magny-en-Vexin,31451,557,
+Les Mureaux,27950,3164,
+Limay,30496,1614,
+Montereau-Fault-Yonne,23103,1833,
+Provins,22332, 1173,
+Nemours,22900,2295,
+Guyancourt,38148,3772,
+Elancourt,39864,3675,
+Chessy,40956,484,
+Nangis,21120,854,
+Issy-les-Moulineux,40764,6736,
+La Ferté-sous-Jouarre,22488,961,
+Noisy-le-grand,26064,6461,
+Saint-Germain-en-Laye,42480,3954,
+La Celle-saint-Cloud,48120,2127,
+Rosny-sous-Bois,23364,4444,
+Franconville,34272,3401,
+Gonesse,28752,2602,
+Villiers-sur-Marne,39840,2827,
+Torcy,32148,2360,
+Plaisir,38008,3175,
+Palaiseau,36644,3246,
+Mantes-la-Jolie,24500,4498,
+RPZ Sarcelles,25548,5682,
+Le Perray-en-Yvelines,35760,673,
+Montereau-Fault-Yonne,16536,1833,
+Dammartin-en-Goele,30540,886,
+Serris,38244,759,
+Bombon,28944,890,
+Bretigny-sur-orge,35856,2333,
+Avons,30000,1393,
+Saint-maur-des-fosses,40428,7528,
+Nanterre,36123,9350,
