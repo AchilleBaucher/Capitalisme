@@ -1,12 +1,12 @@
 #C'est pour modifier les villes.
 
-#POUR AJOUTER DES VIRGULES:
-
+#POUR AJOUTER DES DONNEES:
+DONNEE = ",0"
 fichier = open("villes.txt")
 liste_lignes = fichier.readlines()
 new_liste = []
 for i in liste_lignes:
-	a = i[:-1] + ",0"
+	a = i[:-1] + DONNEE
 	new_liste.append(a)
 fichier.close()
 print(new_liste[0])
