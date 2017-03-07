@@ -4,6 +4,7 @@ Données:
 Tirelire #Pourcentage des bénéfices qu’utilisera le siège: 80%
 coutPub #coût d’une campagne de publicité
 coutImplantation #coût d’implantation d’un restaurant: 800 000 euros
+moisAm #Si le nombre de mois d'amortissement du restaurant est inférieur à moisAm  (12 D'APRÈS LA PUTE), c'est rentable
 
 Variables:
 
