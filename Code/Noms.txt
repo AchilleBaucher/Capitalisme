@@ -8,10 +8,15 @@ moisAm #Si le nombre de mois d'amortissement du restaurant est inférieur à moi
 
 Variables:
 
-carte{ville:{“revMo”:revMo,”nbHab”:nbHab,”nbConso”:nbConso, “Mcdo”:nbMcdo,”Quick”:nbQuick,”Rsurface”:Rsurface}}
-Rsurface: #Racine carree de la surface
-nbHab #Nombre d’habitants d’une ville
+carte{ville:{“revMo”:revMo,”nbHab”:nbHab, “Mcdo”:nbMcdo,”Quick”:nbQuick,”Rsurface”:Rsurface,"Qtm1":Qtm1,"acc":acc}}
+
 revMo #Revenu moyen d’une ville
+nbHab #Nombre d’habitants d’une ville
+nbQuick #nombre de Quick dans la ville
+nbMcdo #nombre de Mcdo dans la ville
+Rsurface: #Racine carree de la surface
+acc #Nombre de mois consécutifs de profits négatif
+
 profit #Bénéfice d’un restaurant ce mois-ci
 score #Score d’une ville qui calcule si il est avantageux de mettre un restaurant dedans
 nbClients #Nombre de clients par mois
@@ -23,6 +28,7 @@ dicProfits: dictionnaire des profits des restos
 coutMenuM: coût d’un menu pour le resto : ⅓
 coutMenuQ: coût d’un menu pour le resto : ⅓
 coutEntretien: coût de l’entretien
+w #Constante d'importance des trasports
 
 Fonctions:
 
