@@ -53,7 +53,10 @@ def fonctionDemande(carte,ville,pref,pop,w):
 	qK = Qtm1*(math.sqrt(Pm) + 1.5)/(Pk +1) 
 	
 	Qt = qM + (R - Pm*qM)/Pk
-
+	
+	dicVille["Qtm1"] = Qt
+	
+	return (qM,qK)
 """    Pour la fonction demande:
 qm(t)=Q(t-1)*(sqrt(Pk)+1.5)/(pm+1)           
 qk(t)=Q(t-1)*(sqrt(Pm)+1.5)/(pk+1)
@@ -68,19 +71,24 @@ Q=qk+qm (demande totale)
 donc Q(t)=qm(t)+((R-pm*qm(t))/pk)"""
 #Prendre en compte la préférence et l'ugmentation de R dans la consommation
     
-def profit(nbConso, prix,coutMenu,coutEntretien):
+def profit(nbConso,pv,coutMenu,coutEntretien):
   	""""Retourne le profit du restaurant ce moi-ci"""
-	return nbConso*(prix-coutMenu) - coutEntretien
+	return nbConso*(pv-coutMenu) - coutEntretien
     
-def score(carte,marque,ville,pref,pop,prix):
+def score(carte,marque,ville,pref,pop,pv):
  	"""Calcule la quantite de consommations si on implantait un restaurant ici"""
 	newVille = ville
 	if ville[marque] == 0:
-		newVille[mrque] =1
+		newVille[marque] =1
 	else:
 		newVille[marque] +=1
-	return fonctionDemande(carte,newVille,pref,pop,prix)
-
+	
+	qM,qK = fonctionDemande(carte,newVille,pref,pop,prix)
+	if marque == "McDo":
+		return qM
+	if marque == "Quick":
+		return qK
+	
 def etude(carte, coutMenuM,coutMenuQ, coutEntretien, pop, pref, prixM,prixQ ):
 	"Renvoie pour chaque ville son profit et son score"""
 	dicProfit = dict()
