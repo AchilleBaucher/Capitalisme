@@ -33,16 +33,26 @@ class Siege:
 		self.coutEnt = coutEntretien
 
 #FONCTIONS
-def fonctionDemande(carte,ville,pref,pop,prix):
+def fonctionDemande(carte,ville,pref,pop,w):
 	"""Retourne le benefice en fonction des infos sur la ville"""
 	dicVille = carte[ville]
 	Nm = dicVille["McDo"]
 	Nk = dicVille["Quick"]
-	Pm = dicVille["PrixM"]
-	Pk = dicVille["PrixQ"]
-	S = dicVille["Surface"]
-	dM = S/Nm
-	dK = S/Nk
+
+	S = dicVille["Surface"] #Qui est en fait sqrt(suface)
+	R = dicVille["R"] #Revenu max depensable par l'ensemble des habitants
+	
+	Qtm1 = dicville["Qtm1"] #Quantite consommee precedent
+	dM = S/Nm #distance hab-mcdo moyenne
+	dK = S/Nk   
+
+	Pk = pVK + w*dK
+	Pm = pVm + w*dM
+	
+	qM = Qtm1*(math.sqrt(Pk) + 1.5)/(Pm +1) 
+	qK = Qtm1*(math.sqrt(Pm) + 1.5)/(Pk +1) 
+	
+	Qt = qM + (R - Pm*qM)/Pk
 
 """    Pour la fonction demande:
 qm(t)=Q(t-1)*(sqrt(Pk)+1.5)/(pm+1)           
@@ -56,8 +66,7 @@ pk*qk+pm*qm=R
 R part de revenu par fast food=3 pourcents du revenu total
 Q=qk+qm (demande totale)
 donc Q(t)=qm(t)+((R-pm*qm(t))/pk)"""
-
-	return nb
+#Prendre en compte la préférence et l'ugmentation de R dans la consommation
     
 def profit(nbConso, prix,coutMenu,coutEntretien):
   	""""Retourne le profit du restaurant ce moi-ci"""
