@@ -1,14 +1,14 @@
 
 Données:
 
-Tirelire #Pourcentage des bénéfices qu’utilisera le siège: 80%
+Tirelire #Pourcentage des bénéfices qu’utilisera le siège: (80%)
 coutPub #coût d’une campagne de publicité
-coutImplantation #coût d’implantation d’un restaurant: 800 000 euros
+coutImplantation #coût d’implantation d’un restaurant: (800 000 euros)
 moisAm #Si le nombre de mois d'amortissement du restaurant est inférieur à moisAm  (12 D'APRÈS LA PUTE), c'est rentable
 
 Variables:
 
-carte{ville:{“revMo”:revMo,”nbHab”:nbHab,”Rsurface”:Rsurface, “Mcdo”:nbMcdo,”Quick”:nbQuick,"Qtm1":Qtm1,"acc":acc}}
+carte{ville:{“revMo”:revMo,”nbHab”:nbHab,”Rsurface”:Rsurface, “Mcdo”:nbMcdo,”Quick”:nbQuick,"Qtm1":Qtm1,"acc":acc"R":R}}
 
 revMo #Revenu moyen d’une ville
 nbHab #Nombre d’habitants d’une ville
@@ -16,24 +16,35 @@ nbQuick #nombre de Quick dans la ville
 nbMcdo #nombre de Mcdo dans la ville
 Rsurface: #Racine carree de la surface
 acc #Nombre de mois consécutifs de profits négatif
+R #Argent maximal dépénsé par les consomateurs
 
 profit #Bénéfice d’un restaurant ce mois-ci
+Qt #Quantite de menus vendus ce mois-ci
+pv #Prix de vente des menus
+coutMenu #cout d'un menu pour le restaurant
+coutEntretien #explicite
+
 score #Score d’une ville qui calcule si il est avantageux de mettre un restaurant dedans
-nbClients #Nombre de clients par mois
-popularite #Popularité d’une marque
-pvM #Prix moyen des menus vendus par Mcdonald's
-pvQ #Prix moyen des menus vendus par Quick
+pref #Pourcentage de personnes qui preferent McDo à Quick
+marque #McDo ou Quick
+pv #Prix de vente des menus
+
+etude #Retourne des statiqtiques sur l'ensemble de la carte
+coutMenuM: coût d’un menu pour McDo : ⅓
+coutMenuQ: coût d’un menu pour Quick : ⅓
+coutEntretien #explicite
+pref #Pourcentage de personnes qui preferent McDo à Quick
+pvM #Prix de vente des menus McDo
+pvQ #Prix de vente des menus Quick
 dicScores: dictionnaire des scores des villes
 dicProfits: dictionnaire des profits des restos
-coutMenuM: coût d’un menu pour le resto : ⅓
-coutMenuQ: coût d’un menu pour le resto : ⅓
-coutEntretien: coût de l’entretien
+
 w #Constante d'importance des trasports
 
 Fonctions:
 
 Demande: (int: revMo, int: nbHab, float: pref, int: pop, list(resto): autresrestos, int: prix) ---------> int: nbConso
-Profit: (int: nbComso, int: prix) → int: profit
+Profit: (int: Qt, int: pv, int coutMenu int coutEntretien) → int: profit
 Score:Simulation de Demande avec un restaurant en plus, renvoie un score
 Decision:  marque, dict: dicScores, dict:dicProfits, int:pop, float: pref --->  decisions
 Action!: applique les décisions

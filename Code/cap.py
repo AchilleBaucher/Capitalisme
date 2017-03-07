@@ -5,8 +5,8 @@ liste_lignes = fichier.readlines()
 carte = dict()
 for ligne in liste_lignes:
 	liste_de_mots = ligne.strip().split(",")
-	Nom,Rev,nbHab,Rsurface,McDo,Quick,Qtm1,acc = liste_de_mots
-	carte[Nom] = {"rev":Rev,"nbHab":nbHab,"Rsurface":Rsurface,"McDo":McDo,"Quick",:Quick,"Qtm1":Qtm1,"acc":acc}
+	Nom,Rev,nbHab,Rsurface,McDo,Quick,Qtm1,acc,R = liste_de_mots
+	carte[Nom] = {"rev":Rev,"nbHab":nbHab,"Rsurface":Rsurface,"McDo":McDo,"Quick",:Quick,"Qtm1":Qtm1,"acc":acc,"R":R}
 
 fichier.close()
 
@@ -28,13 +28,13 @@ class Siege:
 		self.coutEnt = coutEntretien
 
 #FONCTIONS
-def fonctionDemande(carte,ville,pref,pop,w):
+def fonctionDemande(carte,ville,pref,w):
 	"""Retourne la Qte de consommations de menus Quick et McDo en fonction des infos sur la ville"""
 	dicVille = carte[ville]
-	Nm = dicVille["McDo"]
-	Nk = dicVille["Quick"]
+	Nm = dicVille["McDo"] #Nombre de McDo dans la ville
+	Nk = dicVille["Quick"] # ref Quick
 
-	S = dicVille["Surface"] #Qui est en fait sqrt(suface)
+	S = dicVille["Rsurface"] #Qui est la racine carree de la surface
 	R = dicVille["R"] #Revenu max depensable par l'ensemble des habitants
 	
 	Qtm1 = dicville["Qtm1"] #Quantite consommee precedent
@@ -53,6 +53,7 @@ def fonctionDemande(carte,ville,pref,pop,w):
 	
 	return (qM,qK)
 
+#Modification dans le cas ou il n'y a ni McDo ni Quick
 #Prendre en compte la préférence et l'ugmentation de R dans la consommation
     
 def profit(nbConso,pv,coutMenu,coutEntretien):
