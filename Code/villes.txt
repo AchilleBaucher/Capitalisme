@@ -71,5 +71,3 @@ Bretigny-sur-orge,35856,23334,14.56
 Avon,30000,13930,3.83
 Saint-maur-des-fosses,40428,75285,11.25
 Nanterre,36123,93509,12.19
-Saint-maur-des-fosses,40428,75285
-Nanterre,36123,93509
