@@ -15,8 +15,8 @@ profit #Bénéfice d’un restaurant ce mois-ci
 score #Score d’une ville qui calcule si il est avantageux de mettre un restaurant dedans
 nbClients #Nombre de clients par mois
 popularite #Popularité d’une marque
-prixM #Prix moyen des menus vendus par Mcdonald's
-prixQ #Prix moyen des menus vendus par Quick
+pvM #Prix moyen des menus vendus par Mcdonald's
+pvQ #Prix moyen des menus vendus par Quick
 dicScores: dictionnaire des scores des villes
 dicProfits: dictionnaire des profits des restos
 coutMenuM: coût d’un menu pour le resto : ⅓
