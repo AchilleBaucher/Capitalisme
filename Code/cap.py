@@ -5,15 +5,10 @@ liste_lignes = fichier.readlines()
 carte = dict()
 for ligne in liste_lignes:
 	liste_de_mots = ligne.strip().split(",")
-	a,b,c = liste_de_mots
-	carte[a] = {"rev":b}
-#a ville
-#b revenu
-#c nombre d'habitants
+	Nom,Rev,nbHab = liste_de_mots
+	carte[Nom] = {"rev":Rev,"nbHab":nbHab}
+
 fichier.close()
-for i in carte:
-	carte[i]["rev"] = int(carte[i]["rev"])//12
-#carte c'est le ditctionnaire des villes
 
 
 #CLASSES
@@ -34,7 +29,7 @@ class Siege:
 
 #FONCTIONS
 def fonctionDemande(carte,ville,pref,pop,w):
-	"""Retourne le benefice en fonction des infos sur la ville"""
+	"""Retourne la Qte de consommations de menus Quick et McDo en fonction des infos sur la ville"""
 	dicVille = carte[ville]
 	Nm = dicVille["McDo"]
 	Nk = dicVille["Quick"]
@@ -57,18 +52,7 @@ def fonctionDemande(carte,ville,pref,pop,w):
 	dicVille["Qtm1"] = Qt
 	
 	return (qM,qK)
-"""    Pour la fonction demande:
-qm(t)=Q(t-1)*(sqrt(Pk)+1.5)/(pm+1)           
-qk(t)=Q(t-1)*(sqrt(Pm)+1.5)/(pk+1)
-pk=pvk+w*(sqrt(S)/nk)
-pm=pvm+w*(sqrt(S)/nm)
-w poids du transport dans le cout total
-pvk=pvm prix de vente 
-Contrainte de revenu
-pk*qk+pm*qm=R
-R part de revenu par fast food=3 pourcents du revenu total
-Q=qk+qm (demande totale)
-donc Q(t)=qm(t)+((R-pm*qm(t))/pk)"""
+
 #Prendre en compte la préférence et l'ugmentation de R dans la consommation
     
 def profit(nbConso,pv,coutMenu,coutEntretien):

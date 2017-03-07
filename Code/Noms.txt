@@ -8,7 +8,7 @@ moisAm #Si le nombre de mois d'amortissement du restaurant est inférieur à moi
 
 Variables:
 
-carte{ville:{“revMo”:revMo,”nbHab”:nbHab, “Mcdo”:nbMcdo,”Quick”:nbQuick,”Rsurface”:Rsurface,"Qtm1":Qtm1,"acc":acc}}
+carte{ville:{“revMo”:revMo,”nbHab”:nbHab,”Rsurface”:Rsurface, “Mcdo”:nbMcdo,”Quick”:nbQuick,"Qtm1":Qtm1,"acc":acc}}
 
 revMo #Revenu moyen d’une ville
 nbHab #Nombre d’habitants d’une ville
