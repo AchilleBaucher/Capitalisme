@@ -89,16 +89,16 @@ def score(carte,marque,ville,pref,pop,pv):
 	if marque == "Quick":
 		return qK
 	
-def etude(carte, coutMenuM,coutMenuQ, coutEntretien, pop, pref, prixM,prixQ ):
+def etude(carte, coutMenuM,coutMenuQ, coutEntretien, pop, pref, pvM,pvQ ):
 	"Renvoie pour chaque ville son profit et son score"""
 	dicProfit = dict()
 	dicScoreM = dict()
 	dicScoreQ = dict()
 	for ville in carte:
-		dicScoreM[ville] = score(carte,"Mcdo",ville,pref, pop, prix)
-		dicScoreQ[ville] = score(carte,"Quick",ville,pref, pop, prix)
-		dicProfitM[ville] = profit(ville["nbConso"], prixM,coutMenuM,coutEntretien)*(ville["Mcdo"])
-		dicProfitQ[ville] = profit(ville["nbConso"], prixQ,coutMenuQ,coutEntretien)*(ville["Quick"])
+		dicScoreM[ville] = score(carte,"Mcdo",ville,pref, pop, pvM)
+		dicScoreQ[ville] = score(carte,"Quick",ville,pref, pop, pvQ)
+		dicProfitM[ville] = profit(ville["nbConso"], pvM,coutMenuM,coutEntretien)*(ville["Mcdo"])
+		dicProfitQ[ville] = profit(ville["nbConso"], pvQ,coutMenuQ,coutEntretien)*(ville["Quick"])
 	return (dicScoreM, dicScoreQ, dicProfitM, dicProfitQ)
 
 def decision(carte, pop, pref, dicScoreM, dicScoreQ, dicProfitM, dicProfitQ):
