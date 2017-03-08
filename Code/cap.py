@@ -37,15 +37,21 @@ def fonctionDemande(carte,ville,pref,w):
 	S = dicVille["Rsurface"] #Qui est la racine carree de la surface
 	R = dicVille["R"] #Revenu max depensable par l'ensemble des habitants
 	
+	
 	Qtm1 = dicville["Qtm1"] #Quantite consommee precedent
-	dM = S/Nm #distance hab-mcdo moyenne
-	dK = S/Nk   
+	dM = S/(Nm+1) #distance hab-mcdo moyenne
+	dK = S/(Nk+1)   
 
 	Pk = pVK + w*dK
 	Pm = pVm + w*dM
-	
-	qM = Qtm1*(math.sqrt(Pk) + 1.5)/(Pm +1) 
-	qK = Qtm1*(math.sqrt(Pm) + 1.5)/(Pk +1) 
+	if Nm == 0:
+		qM = 0
+	else:
+		qM = Qtm1*(math.sqrt(Pk) + 1.5)/(Pm +1)
+	if Nq == 0:
+		qK = 0
+	else:
+		qK = Qtm1*(math.sqrt(Pm) + 1.5)/(Pk +1) 
 	
 	Qt = qM + (R - Pm*qM)/Pk
 	
@@ -53,7 +59,6 @@ def fonctionDemande(carte,ville,pref,w):
 	
 	return (qM,qK)
 
-#Modification dans le cas ou il n'y a ni McDo ni Quick
 #Prendre en compte la préférence et l'ugmentation de R dans la consommation
     
 def profit(nbConso,pv,coutMenu,coutEntretien):
