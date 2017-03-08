@@ -2,8 +2,8 @@
 import math
 
 #POUR AJOUTER DES DONNEES:
-"""
-DONNEE = ",0"
+
+DONNEE = ",3000"
 fichier = open("villes.txt")
 liste_lignes = fichier.readlines()
 new_liste = []
@@ -19,7 +19,7 @@ for i in new_liste:
 	fichier.write("\n")
 fichier.close
 
-"""
+
 #POUR MODIFIER DES ATTRIBUTS
 """
 numeroAttribut = 3
