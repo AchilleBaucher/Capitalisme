@@ -19,3 +19,8 @@ Récupérer les dernières modification du dépot
 - svn up
 
 Sous Windows, installer et utiliser TortoiseSVN dans Windows Explorer
+# Sur ordi de la fac
+taper:
+ * git config --global http.proxy http://proxy.ufr-info-p6.jussieu.fr:3128
+ * git config --global https.proxy https://proxy.ufr-info-p6.jussieu.fr:3128
+ * git clone https://github.com/acSpinoza/Capitalisme
