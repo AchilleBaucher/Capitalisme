@@ -41,6 +41,7 @@ pvM #Prix de vente des menus McDo
 pvQ #Prix de vente des menus Quick
 dicScores: dictionnaire des scores des villes
 dicProfits: dictionnaire des profits des restos
+dicEmplCoolM: dictionnaire avec les places les plus cools
 
 w #Constante d'importance des trasports
 
