@@ -93,3 +93,5 @@ def etude(carte, coutMenuM,coutMenuQ, coutEntretien, pop, pref, pvM,pvQ ):
 
 def decision(carte, pop, pref, dicScoreM, dicScoreQ, dicProfitM, dicProfitQ):
 	"""Renvoie la decicsion mensuelle des sieges"""
+def statistique(carte):
+	"histogrammes"
