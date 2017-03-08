@@ -10,7 +10,7 @@ moisnul:seuil minimal de profit exigé
 
 Variables:
 
-carte{ville:{“revMo”:revMo,”nbHab”:nbHab,”Rsurface”:Rsurface, “Mcdo”:nbMcdo,”Quick”:nbQuick,"Qtm1":Qtm1,"acc":acc"R":R}}
+carte{ville:{“revMo”:revMo,”nbHab”:nbHab,”Rsurface”:Rsurface, “Mcdo”:nbMcdo,”Quick”:nbQuick,"Qtm1":Qtm1,"echecQ":echecQ,"echecM":echecM,"R":R}}
 
 revMo #Revenu moyen d’une ville
 nbHab #Nombre d’habitants d’une ville
