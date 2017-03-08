@@ -5,8 +5,8 @@ liste_lignes = fichier.readlines()
 carte = dict()
 for ligne in liste_lignes:
 	liste_de_mots = ligne.strip().split(",")
-	Nom,Rev,nbHab,Rsurface,McDo,Quick,Qtm1,acc,R = liste_de_mots
-	carte[Nom] = {"rev":Rev,"nbHab":nbHab,"Rsurface":Rsurface,"McDo":McDo,"Quick",:Quick,"Qtm1":Qtm1,"acc":acc,"R":R}
+	Nom,Rev,nbHab,Rsurface,McDo,Quick,Qtm1,echecM,echecQ,R = liste_de_mots
+	carte[Nom] = {"rev":Rev,"nbHab":nbHab,"Rsurface":Rsurface,"McDo":McDo,"Quick",:Quick,"Qtm1":Qtm1,"echecM":echecM,"echecQ":echecQ,"R":R}
 
 fichier.close()
 
