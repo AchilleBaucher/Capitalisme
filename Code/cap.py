@@ -6,7 +6,7 @@ carte = dict()
 for ligne in liste_lignes:
 	liste_de_mots = ligne.strip().split(",")
 	Nom,Rev,nbHab,Rsurface,McDo,Quick,Qtm1,echecM,echecQ,R = liste_de_mots
-	carte[Nom] = {"rev":Rev,"nbHab":nbHab,"Rsurface":Rsurface,"McDo":McDo,"Quick",:Quick,"Qtm1":Qtm1,"echecM":echecM,"echecQ":echecQ,"R":R}
+	carte[Nom] = {"rev":Rev,"nbHab":nbHab,"Rsurface":Rsurface,"McDo":McDo,"Quick",:Quick,"echecM":echecM,"echecQ":echecQ,"R":R,"Qtm1":Qtm1}
 
 fichier.close()
 
