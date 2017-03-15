@@ -7,10 +7,24 @@ carte = dict()
 for ligne in liste_lignes:
     liste_de_mots = ligne.strip().split(",")
     Nom,Rev,nbHab,Rsurface,McDo,Quick,echecM,echecQ,Qtm1,R = liste_de_mots
-    carte[Nom] = {"rev":Rev,"nbHab":nbHab,"Rsurface":Rsurface,"McDo":McDo,"Quick":Quick,"echecM":echecM,"echecQ":echecQ,"R":R,"Qtm1":Qtm1}
+    carte[Nom] = {"rev":int(Rev),"nbHab":int(nbHab),"Rsurface":float(Rsurface),"McDo":int(McDo),"Quick":int(Quick),"echecM":int(echecM),"echecQ":int(echecQ),"R":float(R),"Qtm1":int(Qtm1)}
 
 fichier.close()
-
+#modification 
+for i in carte:
+    carte[i]["Qtm1"] = carte[i]["R"]/pVK
+#Donnees
+pVK = 8
+pVM = 8
+tirelire = 0.8
+moisAm = 12
+moisnul = 10000
+w = 0.1
+coutMenu = 3
+coutEntretien = 20000
+coutImplantation = 800000000000
+CompteM = 10000000000000000
+CompteQ = 1000000000000000
 #CLASSES
 
 class Restaurant:
@@ -28,9 +42,9 @@ class Siege:
         self.coutEnt = coutEntretien
 
 #FONCTIONS
-def fonctionDemande(carte,ville,pref,pVm,pVK,w):
+def fonctionDemande(carte,ville,pVM,pVK,w):
     """Retourne la Qte de consommations de menus Quick et McDo en fonction des infos sur la ville"""
-    dicVille = carte[ville]
+    dicVille = copy.deepcopy(carte[ville])
     Nm = int(dicVille["McDo"]) #Nombre de McDo dans la ville
     Nk = int(dicVille["Quick"]) # ref Quick
 
@@ -43,13 +57,14 @@ def fonctionDemande(carte,ville,pref,pVm,pVK,w):
     dK = S/(Nk+1)   
 
     Pk = pVK + w*dK
-    Pm = pVm + w*dM
+    Pm = pVM + w*dM
     if Nm == 0:
-        qM = 0
+        qM = R / pVM
     else:
         qM = Qtm1*(math.sqrt(Pk) + 1.5)/(Pm +1)
+
     if Nk == 0:
-        qK = 0
+        qK = R / pVK
     else:
         qK = Qtm1*(math.sqrt(Pm) + 1.5)/(Pk +1) 
     
@@ -65,7 +80,7 @@ def profit(nbConso,pv,coutMenu,coutEntretien):
     """"Retourne le profit du restaurant ce moi-ci"""
     return nbConso*(pv-coutMenu) - coutEntretien
     
-def score(carte,marque,ville,pVM,pVK,w):
+def score(carte,marque,ville,pVM,pVK,w,coutMenu,coutEntretien):
     """Calcule la quantite de consommations si on implantait un restaurant ici"""
     newCarte = copy.deepcopy(carte)
     if int(carte[ville][marque]) != 0:
@@ -75,25 +90,26 @@ def score(carte,marque,ville,pVM,pVK,w):
 
     qM,qK = fonctionDemande(newCarte,ville,pVM,pVK,w)
     if marque == "McDo":
-        return qM
+        return profit(qM,pVM,coutMenu,coutEntretien)
     if marque == "Quick":
-        return qK
+        return profit(qK,pVK,coutMenu,coutEntretien)
     
-def etude(carte, coutMenuM,coutMenuQ, coutEntretien, pVM,pVK,w ):
+def etude(carte, coutMenuM,coutMenuQ, coutEntretien, pVM,pVK,w):
     "Renvoie pour chaque ville son profit et son score"""
-    dicProfit = dict()
+    dicProfitM = dict()
+    dicProfitQ = dict()
     dicScoreM = dict()
     dicScoreQ = dict()
     for ville in carte:
-        dicScoreM[ville] = score(carte,"Mcdo",ville, pVM,pVK,w)
-        dicScoreQ[ville] = score(carte,"Quick",ville,  pVM,pVK,w)
-        dicProfitM[ville] = profit(ville["nbConso"], pvM,coutMenuM,coutEntretien)*(ville["Mcdo"])
-        dicProfitQ[ville] = profit(ville["nbConso"], pvQ,coutMenuQ,coutEntretien)*(ville["Quick"])
+        dicScoreM[ville] = score(carte,"McDo",ville, pVM,pVK,w,coutMenu,coutEntretien)
+        dicScoreQ[ville] = score(carte,"Quick",ville, pVM,pVK,w,coutMenu,coutEntretien)
+        dicProfitM[ville] = profit(carte[ville]["Qtm1"], pVM,coutMenu,coutEntretien)*(carte[ville]["McDo"])
+        dicProfitQ[ville] = profit(carte[ville]["Qtm1"], pVK,coutMenu,coutEntretien)*(carte[ville]["Quick"])
     return (dicScoreM, dicScoreQ, dicProfitM, dicProfitQ)
 
-def decisionM(tirelire,carte, pop, pref, dicScoreM, dicProfitM, coutImplantation,Compte_epargne):
+def decisionM(tirelire,moisAm,moisnul,carte, dicScoreM, dicProfitM, coutImplantation,Compte_epargne):
     """Renvoie la decicsion mensuelle des sieges"""
-    a=0
+    a=0#profit total
     b=0
     c=0
     d=0
@@ -101,20 +117,20 @@ def decisionM(tirelire,carte, pop, pref, dicScoreM, dicProfitM, coutImplantation
     dicEmplCoolM=dict()
     cartebis=copy.deepcopy(carte)
     for i in dicProfitM:
-        a+=i
+        a+=dicProfitM[i]
     biff=a*tirelire
     #desimplantation
     for i in dicProfitM:
-        if i<moisnul:
-                echecM+=1
-        if echecM==12:
+        if carte[i]["McDo"] != 0 and dicProfitM[i]/carte[i]["McDo"]<moisnul :
+                cartebis[i]["echecM"]+=1
+        if echecM == moisAm:
                 cartebis[i]["McDo"]=cartebis[i]["McDo"]-1
     #implantation
     if biff>=coutImplantation:
         for i in dicScoreM:
-            if i*12>=coutImplantation:
+            if dicscoreM[i]*moisAm>=coutImplantation:
                 dicEmplCoolM[ville]=i
-            b=biff//coupImplantation
+    b=biff//coutImplantation
     e = 0
     while e<=b:
         for i in dicEmplCoolM:
@@ -129,7 +145,7 @@ def decisionM(tirelire,carte, pop, pref, dicScoreM, dicProfitM, coutImplantation
     Compte_epargne+=(a-biff)+(biff-b*coutImplantation)
     return(cartebis,NewRestoM)
 
-def decisionQ(tirelire,carte, dicScoreQ, dicProfitQ,coutImplantation,Compte_epargne):
+def decisionQ(tirelire,moisAm,moisnul,carte, dicScoreQ, dicProfitQ,coutImplantation,Compte_epargne):
     """Renvoie la decicsion mensuelle des sieges"""
     a=0
     b=0
@@ -139,20 +155,24 @@ def decisionQ(tirelire,carte, dicScoreQ, dicProfitQ,coutImplantation,Compte_epar
     dicEmplCoolQ=dict()
     cartebis2=copy.deepcopy(carte)
     for i in dicProfitQ:
-        a+=i
-    biff=a*tirelire
+        a+=dicProfitQ[i]
+    biff=a*tirelire + Compte_epargne
     #desimplantation
     for i in dicProfitQ:
-        if i<moisnul:
-                echecQ+=1
-        if echecM==12:
+        if carte[i]["Quick"] != 0 and dicProfitQ[i]/carte[i]["Quick"]<moisnul :
+                cartebis2[i]["echecQ"]+=1
+        if echecM==moisAm:
                 cartebis2[i]["Quick"]=cartebis2[i]["Quick"]-1
     #implantation
+    print(biff,coutImplantation)
     if biff>=coutImplantation:
         for i in dicScoreQ:
-            if i*12>=coutImplantation:
-                dicEmplCoolQ[ville]=i
-            b=biff//coupImplantation
+            if i == "Paris1":
+                print("JFGC3",dicScoreQ[i],moisAm,coutImplantation)
+            if dicScoreQ[i]*moisAm>=coutImplantation:
+                dicEmplCoolQ[i]=dicScoreQ[i]
+    print(dicEmplCoolQ)
+    b=biff//coutImplantation
     e = 0
     while e<=b:
         for i in dicEmplCoolQ:
@@ -167,16 +187,33 @@ def decisionQ(tirelire,carte, dicScoreQ, dicProfitQ,coutImplantation,Compte_epar
     Compte_epargne+=(a-biff)+(biff-b*coutImplantation)
     return(cartebis2,NewRestoQ)
     
-def action (cartebis,cartebis2,carte):
+def action (cartebis,NewRestoM,NewRestoQ,cartebis2,carte):
     #desimplantation
     for ville in carte:
-        carte[ville]['Mcdo']=cartebis[ville]['Mcdo']
+        carte[ville]['McDo']=cartebis[ville]['McDo']
         carte[ville]['Quick']=cartebis2[ville]['Quick']
-    #implantation
-    for i in NewRestoM:
-        carte[i]['Mcdo']+=1
-    for i in NewRestoQ:
-        carte[i]['Quick']+=1
     return carte
-dicScoreM, dicScoreQ, dicProfitM, dicProfitQ = etude(carte,3,3,20000,8,8,0.1)
-print(decisionQ(0.8,carte,dicScoreQ,dicProfitQ,800000,6))
+
+def main(carte, pVK,pVM,tirelire,moisAm,moisnul,w, coutMenuM, coutMenuQ,coutEntretien, coutImplantation,CompteM,CompteQ,maxit):
+    """Fait toute la simulation"""
+    for i in range(maxit):
+        dicScoreM, dicScoreQ, dicProfitM, dicProfitQ = etude(carte, coutMenuM,coutMenuQ, coutEntretien, pVM,pVK,w)
+        cartebisM, NewRestoM = decisionM(tirelire,moisAm,moisnul,carte, dicScoreM, dicProfitM, coutImplantation,CompteM) #RAJOUTER PRIX DE VENTE
+        print(NewRestoM)
+        cartebisQ , NewRestoQ = decisionQ(tirelire,moisAm,moisnul,carte, dicScoreQ, dicProfitQ,coutImplantation,CompteQ) 
+        print(NewRestoQ)
+        carte = copy.deepcopy(action(cartebisM,NewRestoM,NewRestoQ,cartebisQ,copy.deepcopy(carte)))
+
+carr  = copy.deepcopy(carte)
+carr["Paris1"]["Quick"] = 1
+tQM,tQK = fonctionDemande(carr,"Paris1",pVM,pVK,w)
+#print("Qte: ",profit(tQM,pVM,coutMenu,coutEntretien))
+#print(score(carte,"Quick","Paris1",pVM,pVK,w,coutMenu,coutEntretien))
+_,caca,_,jh = etude(carte,3,3, coutEntretien, pVM,pVK,w)
+#print(caca["Paris1"])
+a,b=decisionQ(tirelire,moisAm,moisnul,carte, caca, jh,coutImplantation,CompteQ)
+
+#print(a['Paris1'],b)
+#main(carte, pVK,pVM,tirelire,moisAm,moisnul,w, coutMenuM, coutMenuQ,coutEntretien, coutImplantation,CompteM,CompteQ,12)
+#mmh = open("testVi.txt","w")
+#main(carte, pVK,pVM,tirelire,moisAm,moisnul,w, coutMenuM, coutMenuQ,coutEntretien, coutImplantation,CompteM,CompteQ,24)
