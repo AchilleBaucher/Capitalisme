@@ -86,12 +86,13 @@ def NewResto(biff,dicEmplCool):
     """Renvoie la liste des emplacements qui recevront un restaurant"""
     NewResto = set()
     nbMax = biff // coutImplantation
+    if nbMax > len(dicEmplCool):
+        return changeenset(dicEmplCool)
     e = 0
     fort = 0
     best = ""
     while e<=nbMax:
         for ville in dicEmplCool:
-            print
             if not(ville in NewResto):
                 if dicEmplCool[ville]>fort:
                         fort=dicEmplCool[ville]
@@ -100,13 +101,18 @@ def NewResto(biff,dicEmplCool):
         e+=1
         fort = 0
         best = ""
-
     return NewResto
 
 def unouzero(n):
     if n == 0:
         return 0
     return 1
+
+def changeenset(dic):
+    se = set()
+    for a in dic:
+        se.add(a)
+    return se
 
 def fonctionDemande(carte,ville):
     """Retourne la Qte de consommations de menus Quick et McDo en fonction des infos sur la ville"""
@@ -156,9 +162,9 @@ def score(marque,ville):
     qM,qK,_ = fonctionDemande(newCarte,ville)
 
     if marque == "McDo":
-        return profit(qM,pVM)
+        return profit(qM,pVM) - McDo.dicProfit[ville]
     if marque == "Quick":
-        return profit(qK,pVK)
+        return profit(qK,pVK) - Quick.dicProfit[ville]
     
 def MAJ():
     "Met a jour la quantite consommee et les profits"""
@@ -181,11 +187,14 @@ def etude():
     McDo.maj("Scores",dicScoreM)
 
 #TEST
+en = set()
+for i in carte:
+    en.add(i)
 m = ''
 while m == '':
     etude()
     McDo.imp()
-    print(carte["Paris1"]["McDo"],carte["Paris1"]["Qtm1"])
+    print(carte["Paris16"]["McDo"],carte["Paris16"]["Qtm1"])
     MAJ()
     McDo.recolte()
     print(McDo.epargne)
