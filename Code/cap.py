@@ -145,8 +145,6 @@ def fonctionDemande(carte,ville):
     Qt = (qM + (R - Pm*qM)/Pk)*unouzero(Nm+Nk)
 
     return (qM,qK,Qt)
-
-#Prendre en compte la preference et l'augmentation de R dans la consommation
     
 def profit(Qte,pv):
     """"Retourne le profit du restaurant ce moi-ci"""
@@ -219,3 +217,11 @@ plt.legend(loc='upper right', frameon=False)
 plt.xlabel("Temps (mois)")
 plt.ylabel("Epargne (Euros)")
 plt.show()
+
+#CONCLUSION
+#C'est pas normal car mcdo a la meme evolution avec ou sans quick
+#Il faut prendre en compte la preference et l'augmentation de R dans la consommation
+#Il faut que mcdo et quick s'implantent plus, genre deux fois dans une meme ville
+#changement de prix de vente reste a faire
+#publiite
+#voilaaaaa
