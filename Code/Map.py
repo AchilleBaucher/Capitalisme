@@ -129,34 +129,51 @@ Franconville = canvas.create_rectangle(*Franconville_coords)
 Gonesse_coords = (350,140,360,150)
 Gonesse= canvas.create_rectangle(*Gonesse_coords)
 
+VillierssurMarne_coords = (367,220,377,225)
+VillierssurMarne= canvas.create_rectangle( *VillierssurMarne_coords)
+
+Torcy_coords = (405,200,415,210)
+Torcy = canvas.create_rectangle(*Torcy_coords)
+
+Plaisir_coords = (170,225,185,240)
+Plaisir = canvas.create_rectangle(*Plaisir_coords)
+
+Palaiseau_coords = (255,270,265,280)
+Palaiseau = canvas.create_rectangle(*Palaiseau_coords)
+
+ManteslaJolie_coords = (90,130,100,140)  
+ManteslaJolie = canvas.create_rectangle(*ManteslaJolie_coords)
+
+Sarcelles_coords = (310,140,320,150)
+Sarcelles= canvas.create_rectangle(*Sarcelles_coords)
+
+LePerrayenYvelines_coords = (130,305,140,315)
+LePerrayenYvelines= canvas.create_rectangle(*LePerrayenYvelines_coords)
+
+DammartinenGoele_coords = (415,100,425,110)
+DammartinenGoele= canvas.create_rectangle(*DammartinenGoele_coords)
+
+Serris_coords = (440,205,450,215)
+Serris = canvas.create_rectangle(*Serris_coords)
+
+Bombon_coords = (425,355,435,365)
+Bombon= canvas.create_rectangle(*Bombon_coords)
+
+Bretignysurorge_coords = (300,320,310,330)
+Bretignysurorge= canvas.create_rectangle(*Bretignysurorge_coords)
+
+Avon_coords = (430,420,440,430)
+Avon= canvas.create_rectangle(*Avon_coords)
+
+Saintmaurdesfosses_coords = (350,230,360,240)
+Saintmaurdesfosses= canvas.create_rectangle(*Saintmaurdesfosses_coords)
 
 
-
+Nanterre_coords = (250,180,270,200)
+Nanterre= canvas.create_rectangle(*Nanterre_coords)
 
 
 canvas.create_image(0, 0, anchor=NW, image=PhotoIDF)
-
-
-
-
-
-
-
-
-"""Villiers-sur-Marne= canvas.create_rectangle(
-Torcy= canvas.create_rectangle(
-Plaisir= canvas.create_rectangle(
-Palaiseau= canvas.create_rectangle(
-Mantes-la-Jolie= canvas.create_rectangle(
-Sarcelles= canvas.create_rectangle(
-Le Perray-en-Yvelines= canvas.create_rectangle(
-Dammartin-en-Goele= canvas.create_rectangle(
-Serris= canvas.create_rectangle(
-Bombon= canvas.create_rectangle(
-Bretigny-sur-orge= canvas.create_rectangle(
-Avon= canvas.create_rectangle(
-Saint-maur-des-fosses= canvas.create_rectangle(
-Nanterre= canvas.create_rectangle("""
 
 
 
@@ -165,3 +182,4 @@ Nanterre= canvas.create_rectangle("""
 canvas.pack()
 
 Pageprincipale.mainloop()
+
