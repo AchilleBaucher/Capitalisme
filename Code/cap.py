@@ -1,5 +1,6 @@
 import math
 import copy
+from matplotlib import pyplot as plt
 
 #Fabriquation du dictionnaire des villes
 fichier = open("villes.txt")
@@ -55,7 +56,6 @@ class Siege:
     def imp(self):
         """Implante les nouveaux restaurants"""
         newResto = NewResto(self.epargne,EmplCool(self.dicScore))
-        print(newResto)
         for ville in newResto:
             carte[ville][self.marque] += 1
         self.epargne -= len(newResto)*coutImplantation
@@ -188,7 +188,13 @@ def etude():
     McDo.maj("Scores",dicScoreM)
 
 #TEST
-satsProfit = dict()
+satsProfitM = dict()
+satsProfitM[0] = McDo.dicProfit
+satsProfitM[0]["Profit total"] = McDo.epargne
+satsProfitQ = dict()
+satsProfitQ[0] = Quick.dicProfit
+satsProfitQ[0]["Profit total"] = Quick.epargne
+
 statsNb = dict()
 num = 0
 m = ''
@@ -196,8 +202,20 @@ while m == '':
     etude()
     McDo.imp()
     Quick.imp()
-    #print(carte["Paris16"]["McDo"],carte["Paris16"]["Qtm1"])
     MAJ()
     McDo.recolte()
     Quick.recolte()
+    satsProfitM[num] = McDo.dicProfit
+    satsProfitM[num]["Epargne"] = McDo.epargne
+    satsProfitQ[num] = Quick.dicProfit
+    satsProfitQ[num]["Epargne"] = Quick.epargne
+    num+=1
     m = input("UN MOIS DEJA:")
+
+plt.plot([i for i in range(num)],[satsProfitM[n]["Epargne"] for n in range(num)],color="yellow", linewidth=2.5, linestyle="-", label="McDo") #bleu
+plt.plot([i for i in range(num)],[satsProfitQ[n]["Epargne"] for n in range(num)],color="red", linewidth=2.5, linestyle="-", label="Quick") #bleu
+plt.xlabel("Epargne")
+plt.legend(loc='upper right', frameon=False)
+plt.xlabel("Temps (mois)")
+plt.ylabel("Epargne (Euros)")
+plt.show()
