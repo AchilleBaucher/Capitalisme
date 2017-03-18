@@ -55,6 +55,7 @@ class Siege:
     def imp(self):
         """Implante les nouveaux restaurants"""
         newResto = NewResto(self.epargne,EmplCool(self.dicScore))
+        print(newResto)
         for ville in newResto:
             carte[ville][self.marque] += 1
         self.epargne -= len(newResto)*coutImplantation
@@ -187,14 +188,13 @@ def etude():
     McDo.maj("Scores",dicScoreM)
 
 #TEST
-en = set()
-for i in carte:
-    en.add(i)
+satsProfit = dict()
+statsNb = dict()
 m = ''
 while m == '':
     etude()
     McDo.imp()
-    print(carte["Paris16"]["McDo"],carte["Paris16"]["Qtm1"])
+    #print(carte["Paris16"]["McDo"],carte["Paris16"]["Qtm1"])
     MAJ()
     McDo.recolte()
     print(McDo.epargne)
