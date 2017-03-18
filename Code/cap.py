@@ -129,14 +129,14 @@ def fonctionDemande(carte,ville):
     dM = S/(Nm+1) #distance hab-mcdo moyenne
     dK = S/(Nk+1)   
 
-    Pk = pVK + w*dK
-    Pm = pVM + w*dM
+    Pk = Quick.pv + w*dK
+    Pm = McDo.pv + w*dM
 
     if Qtm1 == 0: #Cas ou la ville n'a jamais eu de fast-food
         if Nm == 1: #Si mcdo s'est implante, alors:
-            Qtm1 = R/pVM
+            Qtm1 = R/McDo.pv
         if Nk == 1:
-            Qtm1 = R/pVK
+            Qtm1 = R/Quick.pv
 
     qM = Qtm1*(math.sqrt(Pk) + 1.5)/(Pm +1)*unouzero(Nm) 
 
@@ -163,9 +163,9 @@ def score(marque,ville):
     qM,qK,_ = fonctionDemande(newCarte,ville)
 
     if marque == "McDo":
-        return profit(qM,pVM) - McDo.dicProfit[ville]
+        return profit(qM,McDo.pv) - McDo.dicProfit[ville]
     if marque == "Quick":
-        return profit(qK,pVK) - Quick.dicProfit[ville]
+        return profit(qK,Quick.pv) - Quick.dicProfit[ville]
     
 def MAJ():
     "Met a jour la quantite consommee et les profits"""
@@ -173,8 +173,8 @@ def MAJ():
     dicProfitQ = dict()
     for ville in carte:
         qM,qK,carte[ville]["Qtm1"] = fonctionDemande(carte,ville) #MAJ des demandes
-        dicProfitM[ville] = profit(qM,pVM)*unouzero(carte[ville]["McDo"]) #Etude des profits
-        dicProfitQ[ville] = profit(qK,pVK)*unouzero(carte[ville]["Quick"])
+        dicProfitM[ville] = profit(qM,McDo.pv)*unouzero(carte[ville]["McDo"]) #Etude des profits
+        dicProfitQ[ville] = profit(qK,Quick.pv)*unouzero(carte[ville]["Quick"])
     McDo.maj("Profits",dicProfitM)
     Quick.maj("Profits",dicProfitQ)
 
@@ -190,12 +190,14 @@ def etude():
 #TEST
 satsProfit = dict()
 statsNb = dict()
+num = 0
 m = ''
 while m == '':
     etude()
     McDo.imp()
+    Quick.imp()
     #print(carte["Paris16"]["McDo"],carte["Paris16"]["Qtm1"])
     MAJ()
     McDo.recolte()
-    print(McDo.epargne)
+    Quick.recolte()
     m = input("UN MOIS DEJA:")
