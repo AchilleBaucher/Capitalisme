@@ -16,15 +16,15 @@ fichier.close()
 #Donnees
 pVK = 8
 pVM = 8
-tirelire = 0.5
+tirelire = 0.8
 moisAm = 12
 moisnul = 10000
 w = 0.1
 coutMenu = 3
 coutEntretien = 20000
 coutImplantation = 800000
-CompteM = 80000
-CompteQ = 80000
+CompteM = 1000000
+CompteQ = 1000000
 
 #CLASSES
 
@@ -42,7 +42,7 @@ class Siege:
         biff = 0
         for ville in self.dicProfit:
             biff += self.dicProfit[ville]
-        self.epargne = (self.epargne+biff)*tirelire
+        self.epargne = self.epargne+biff
 
     def desimp(self):
         """Desimplante et ajoute des malus si necesaire"""
@@ -55,17 +55,19 @@ class Siege:
 
     def imp(self):
         """Implante les nouveaux restaurants"""
-        newResto = NewResto(self.epargne,EmplCool(self.dicScore))
+        newResto = NewResto((self.epargne*tirelire),EmplCool(self.dicScore))
         for ville in newResto:
             carte[ville][self.marque] += 1
         self.epargne -= len(newResto)*coutImplantation
-        print(newResto)
+        print(newResto, self.epargne)
 
     def maj(self,nomEl,newEl):
         if nomEl == "Profits":
             self.dicProfit = newEl
         elif nomEl == "Scores":
             self.dicScore = newEl
+    def impots(self):
+        self.epargne = self.epargne*0.8
 
 #Creation des Sieges
 dic = dict()
@@ -93,7 +95,7 @@ def NewResto(biff,dicEmplCool):
     e = 0
     fort = 0
     best = ""
-    while e<=nbMax:
+    while e<nbMax:
         for ville in dicEmplCool:
             if not(ville in NewResto):
                 if dicEmplCool[ville]>fort:
@@ -203,6 +205,8 @@ def affichage():
         if p == "sc":
             for i in McDo.dicScore:
                 print(i,":",McDo.dicScore[i])
+        if  p == 'b':
+            print(McDo.epargne)
     if m == 'k':
         p = input("Quick:")
         if p == 'nb':
@@ -216,6 +220,8 @@ def affichage():
         if p == "sc":
             for i in Quick.dicScore:
                 print(i,":",Quick.dicScore[i])
+        if p == 'b':
+            print(Quick.epargne)
     if not(m == 'k' or m == 'm'):
         print("oh")
         return "FIN"
@@ -239,6 +245,7 @@ while m == '':
     #Quick.imp()
     MAJ()
     McDo.recolte()
+    McDo.impots()
     #Quick.recolte()
     satsProfitM[num] = McDo.dicProfit
     satsProfitM[num]["Epargne"] = McDo.epargne
