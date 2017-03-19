@@ -19,12 +19,12 @@ pVM = 8
 tirelire = 0.8
 moisAm = 12
 moisnul = 10000
-w = 0.1
+w = 0.3
 coutMenu = 3
 coutEntretien = 20000
 coutImplantation = 800000
-CompteM = 1000000
-CompteQ = 1000000
+CompteM = 800000
+CompteQ = 800000
 
 #CLASSES
 
@@ -36,12 +36,16 @@ class Siege:
         self.dicScore = dicScore
         self.epargne = epargne
         self.echec = "echec" + marque[0]
+        self.newResto = set()
+        self.mois = 0
+        self.profit = 0
 
     def recolte(self):
         """Recolte les profits"""
         biff = 0
         for ville in self.dicProfit:
             biff += self.dicProfit[ville]
+        self.profit = biff
         self.epargne = self.epargne+biff
 
     def desimp(self):
@@ -53,13 +57,32 @@ class Siege:
                 carte[ville][self.marque] -= 1
                 carte[ville][self.echec] = 0
 
+    def choixNewResto(self):
+        """Renvoie la liste des emplacements qui recevront un restaurant"""
+        dicEmplCool = EmplCool(self.dicScore)
+        self.newResto = set()
+        nbMax = self.epargne // coutImplantation
+        if nbMax > len(dicEmplCool):
+            return changeenset(dicEmplCool)
+        e = 0
+        fort = 0
+        best = ""
+        while e < nbMax:
+            for ville in dicEmplCool:
+                if not(ville in self.newResto):
+                    if dicEmplCool[ville]>fort:
+                            fort=dicEmplCool[ville]
+                            best=ville
+            self.newResto.add(best)
+            e+=1
+            fort = 0
+            best = ""
+
     def imp(self):
         """Implante les nouveaux restaurants"""
-        newResto = NewResto((self.epargne*tirelire),EmplCool(self.dicScore))
-        for ville in newResto:
+        for ville in self.newResto:
             carte[ville][self.marque] += 1
-        self.epargne -= len(newResto)*coutImplantation
-        print(newResto, self.epargne)
+        self.epargne -= len(self.newResto)*coutImplantation
 
     def maj(self,nomEl,newEl):
         if nomEl == "Profits":
@@ -85,27 +108,6 @@ def EmplCool(dicScore):
         if dicScore[ville] * moisAm >= coutImplantation:
             dicEmplCool[ville] = dicScore[ville]
     return dicEmplCool
-
-def NewResto(biff,dicEmplCool):
-    """Renvoie la liste des emplacements qui recevront un restaurant"""
-    NewResto = set()
-    nbMax = biff // coutImplantation
-    if nbMax > len(dicEmplCool):
-        return changeenset(dicEmplCool)
-    e = 0
-    fort = 0
-    best = ""
-    while e<nbMax:
-        for ville in dicEmplCool:
-            if not(ville in NewResto):
-                if dicEmplCool[ville]>fort:
-                        fort=dicEmplCool[ville]
-                        best=ville
-        NewResto.add(best)
-        e+=1
-        fort = 0
-        best = ""
-    return NewResto
 
 def unouzero(n):
     if n == 0:
@@ -229,37 +231,55 @@ def affichage():
 
 
 #TEST
-satsProfitM = dict()
-satsProfitM[0] = McDo.dicProfit
-satsProfitM[0]["Profit total"] = McDo.epargne
-satsProfitQ = dict()
-satsProfitQ[0] = Quick.dicProfit
-satsProfitQ[0]["Profit total"] = Quick.epargne
-
-statsNb = dict()
 num = 0
 m = ''
 while m == '':
+    print("Mois ",num,":")
     etude()
+    McDo.choixNewResto()
+    print("McDo a ",round(McDo.epargne),"€ et va implanter ici:",McDo.newResto)
     McDo.imp()
-    #Quick.imp()
+    print("Implantation! McDo a paye",len(McDo.newResto)*coutImplantation,"€ et a maintenant",round(McDo.epargne),"€")
     MAJ()
+    print("Mise jour des demandes")
     McDo.recolte()
+    avant = McDo.epargne
+    print("McDo a recolte ",round(McDo.profit),"€ et a maintenant " ,round(McDo.epargne),"€")
     McDo.impots()
-    #Quick.recolte()
-    satsProfitM[num] = McDo.dicProfit
-    satsProfitM[num]["Epargne"] = McDo.epargne
-    satsProfitQ[num] = Quick.dicProfit
-    satsProfitQ[num]["Epargne"] = Quick.epargne
-    num+=1
+    print("McDo a paye ",round(-McDo.epargne + avant),"€ aux impots et a maintenant ",round(McDo.epargne),"€","\n","\n")
     m = affichage()
+    num +=1
 
-plt.plot([i for i in range(num)],[satsProfitM[n]["Epargne"] for n in range(num)],color="yellow", linewidth=2.5, linestyle="-", label="McDo") #bleu
-plt.plot([i for i in range(num)],[satsProfitQ[n]["Epargne"] for n in range(num)],color="red", linewidth=2.5, linestyle="-", label="Quick") #bleu
-plt.xlabel("Epargne")
-plt.legend(loc='upper right', frameon=False)
-plt.xlabel("Temps (mois)")
-plt.ylabel("Epargne (Euros)")
+
+
+
+
+
+
+
+#satsProfitM = dict()
+#satsProfitM[0] = McDo.dicProfit
+#satsProfitM[0]["Profit total"] = McDo.epargne
+#satsProfitQ = dict()
+#satsProfitQ[0] = Quick.dicProfit
+#satsProfitQ[0]["Profit total"] = Quick.epargne
+
+#statsNb = dict()
+
+#Quick.recolte()
+#satsProfitM[num] = McDo.dicProfit
+#satsProfitM[num]["Epargne"] = McDo.epargne
+#satsProfitQ[num] = Quick.dicProfit
+#satsProfitQ[num]["Epargne"] = Quick.epargne
+#num+=1
+#m = affichage()
+
+#plt.plot([i for i in range(num)],[satsProfitM[n]["Epargne"] for n in range(num)],color="yellow", linewidth=2.5, linestyle="-", label="McDo") #bleu
+#plt.plot([i for i in range(num)],[satsProfitQ[n]["Epargne"] for n in range(num)],color="red", linewidth=2.5, linestyle="-", label="Quick") #bleu
+#plt.xlabel("Epargne")
+#plt.legend(loc='upper right', frameon=False)
+#plt.xlabel("Temps (mois)")
+#plt.ylabel("Epargne (Euros)")
 #plt.show()
 
 #CONCLUSION
