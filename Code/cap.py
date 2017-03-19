@@ -16,12 +16,12 @@ fichier.close()
 #Donnees
 pVK = 8
 pVM = 8
-tirelire = 0.8
+tirelire = 0.5
 moisAm = 12
 moisnul = 10000
 w = 0.3
-coutMenu = 3
-coutEntretien = 20000
+coutMenu = 5
+coutEntretien = 30000
 coutImplantation = 800000
 CompteM = 800000
 CompteQ = 800000
@@ -231,21 +231,34 @@ def affichage():
 
 
 #TEST
+kik = input("Quick est'il de la partie?")
+if kik == "O" or kik == "oui" or kik == "o" or kik == "Oui" or kik == "y" or kik == "yes":
+    k = True
+else:
+    k = False
 num = 0
 m = ''
 while m == '':
     print("Mois ",num,":")
     etude()
     McDo.choixNewResto()
+    if k:
+        Quick.choixNewResto()
     print("McDo a ",round(McDo.epargne),"€ et va implanter ici:",McDo.newResto)
     McDo.imp()
+    if k:
+        Quick.imp()
     print("Implantation! McDo a paye",len(McDo.newResto)*coutImplantation,"€ et a maintenant",round(McDo.epargne),"€")
     MAJ()
     print("Mise jour des demandes")
     McDo.recolte()
+    if k:
+        Quick.recolte()
     avant = McDo.epargne
     print("McDo a recolte ",round(McDo.profit),"€ et a maintenant " ,round(McDo.epargne),"€")
     McDo.impots()
+    if k:
+        Quick.impots()
     print("McDo a paye ",round(-McDo.epargne + avant),"€ aux impots et a maintenant ",round(McDo.epargne),"€","\n","\n")
     m = affichage()
     num +=1
@@ -293,4 +306,5 @@ while m == '':
 #proximite avec autres villes
 #tourisme
 #publiite
+#Je rajoute le fait qu'ils doivent construire le mcdo et qu'ils ont un profit nul le premier mois
 #voilaaaaa
