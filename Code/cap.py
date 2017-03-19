@@ -16,15 +16,15 @@ fichier.close()
 #Donnees
 pVK = 8
 pVM = 8
-tirelire = 0.8
+tirelire = 0.5
 moisAm = 12
 moisnul = 10000
 w = 0.1
 coutMenu = 3
 coutEntretien = 20000
 coutImplantation = 800000
-CompteM = 100000
-CompteQ = 100000
+CompteM = 80000
+CompteQ = 80000
 
 #CLASSES
 
@@ -59,6 +59,7 @@ class Siege:
         for ville in newResto:
             carte[ville][self.marque] += 1
         self.epargne -= len(newResto)*coutImplantation
+        print(newResto)
 
     def maj(self,nomEl,newEl):
         if nomEl == "Profits":
@@ -185,6 +186,42 @@ def etude():
     Quick.maj("Scores",dicScoreQ)
     McDo.maj("Scores",dicScoreM)
 
+def affichage():
+    m = input("Partido:")
+    if m == '':
+        return ''
+    if m == 'm':
+        p = input("MacDonald's:")
+        if p == 'nb':
+            for i in carte:
+                if carte[i]["McDo"] != 0:
+                    print(i,":",carte[i]["McDo"])
+        if p == 'nbp':
+            for i in carte:
+                if carte[i]["McDo"] == 0:
+                    print(i,":",carte[i]["McDo"])
+        if p == "sc":
+            for i in McDo.dicScore:
+                print(i,":",McDo.dicScore[i])
+    if m == 'k':
+        p = input("Quick:")
+        if p == 'nb':
+            for i in carte:
+                if carte[i]["Quick"] != 0:
+                    print(i,":",carte[i]["Quick"])
+        if p == 'nbp':
+            for i in carte:
+                if carte[i]["Quick"] == 0:
+                    print(i,":",carte[i]["Quick"])
+        if p == "sc":
+            for i in Quick.dicScore:
+                print(i,":",Quick.dicScore[i])
+    if not(m == 'k' or m == 'm'):
+        print("oh")
+        return "FIN"
+    return affichage()
+
+
 #TEST
 satsProfitM = dict()
 satsProfitM[0] = McDo.dicProfit
@@ -199,16 +236,16 @@ m = ''
 while m == '':
     etude()
     McDo.imp()
-    Quick.imp()
+    #Quick.imp()
     MAJ()
     McDo.recolte()
-    Quick.recolte()
+    #Quick.recolte()
     satsProfitM[num] = McDo.dicProfit
     satsProfitM[num]["Epargne"] = McDo.epargne
     satsProfitQ[num] = Quick.dicProfit
     satsProfitQ[num]["Epargne"] = Quick.epargne
     num+=1
-    m = input("UN MOIS DEJA:")
+    m = affichage()
 
 plt.plot([i for i in range(num)],[satsProfitM[n]["Epargne"] for n in range(num)],color="yellow", linewidth=2.5, linestyle="-", label="McDo") #bleu
 plt.plot([i for i in range(num)],[satsProfitQ[n]["Epargne"] for n in range(num)],color="red", linewidth=2.5, linestyle="-", label="Quick") #bleu
@@ -216,12 +253,17 @@ plt.xlabel("Epargne")
 plt.legend(loc='upper right', frameon=False)
 plt.xlabel("Temps (mois)")
 plt.ylabel("Epargne (Euros)")
-plt.show()
+#plt.show()
 
 #CONCLUSION
 #C'est pas normal car mcdo a la meme evolution avec ou sans quick
 #Il faut prendre en compte la preference et l'augmentation de R dans la consommation
 #Il faut que mcdo et quick s'implantent plus, genre deux fois dans une meme ville
 #changement de prix de vente reste a faire
+#implantation trop rapide
+#riche pauvres
+#taile de la ville
+#proximite avec autres villes
+#tourisme
 #publiite
 #voilaaaaa
