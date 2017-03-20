@@ -306,5 +306,5 @@ while m == '':
 #proximite avec autres villes
 #tourisme
 #publiite
-#Je rajoute le fait qu'ils doivent construire le mcdo et qu'ils ont un profit nul le premier mois
+#il faudrait rajouter le fait qu'ils doivent construire le mcdo et qu'ils ont un profit nul le premier mois
 #voilaaaaa
