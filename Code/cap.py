@@ -91,6 +91,7 @@ class Siege:
             self.dicScore = newEl
             
     def impots(self):
+# ca ns parait etre du caca: taux dimposition trop faible (#palier d'imposition propre à chaque profit d'un resto <3)
         self.epargne = self.epargne*0.8
 
 #Creation des Sieges
@@ -144,8 +145,8 @@ def fonctionDemande(carte,ville):
         if Nk == 1:
             Qtm1 = R/Quick.pv
 
-    qM = Qtm1*(math.sqrt(Pk) + 1.5)/(Pm +1)*unouzero(Nm) 
-
+    qM = Qtm1*(math.sqrt(Pk) + 1.5)/(Pm +1)*unouzero(Nm)
+# ligne d'en dessous *0.98 (voir commentaire)
     qK = Qtm1*(math.sqrt(Pm) + 1.5)/(Pk +1)*unouzero(Nk)
     
     Qt = (qM + (R - Pm*qM)/Pk)*unouzero(Nm+Nk)
