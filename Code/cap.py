@@ -296,6 +296,9 @@ while m == '':
 #plt.ylabel("Epargne (Euros)")
 #plt.show()
 
+#satsNbM=dict()
+
+
 #CONCLUSION
 #C'est pas normal car mcdo a la meme evolution avec ou sans quick
 #Il faut prendre en compte la preference et l'augmentation de R dans la consommation
@@ -309,3 +312,13 @@ while m == '':
 #publiite
 #il faudrait rajouter le fait qu'ils doivent construire le mcdo et qu'ils ont un profit nul le premier mois
 #voilaaaaa
+
+#Commentaires des sistas
+# en augmentant le taux d'imposition (de 0.20 à 0.80), même si le taux d'imposition est important, augmentation du nombre de Mac Do exponentielle
+# Avec ou sans quick modification de 10000 $ seulement sur toute la France #caillouinutiledanslachaussure
+
+# ON A REUSSI A COMPRENDRE TON PTN DE TEST !!!!!!!!!
+# Quick evolue exactement comme Mc do (focntion demande craint?)
+# si on met un coef de preference (type 0.98 de qK) on observe que Quick ouvre un resto avec un mois de retard dans une ville differente (#genial)
+# la croissance est quand meme trop rapide (peut etre peut on imposer en fonction du revenu #paliers d'imposition sa mere)
+#la prochaine fois met un putain de mode d'emploi 
