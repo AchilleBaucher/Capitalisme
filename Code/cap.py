@@ -58,7 +58,7 @@ class Siege:
                 carte[ville][self.echec] = 0
 
     def choixNewResto(self):
-        """Renvoie la liste des emplacements qui recevront un restaurant"""
+        """Renvoie l'ensemble des emplacements qui recevront un restaurant"""
         dicEmplCool = EmplCool(self.dicScore)
         self.newResto = set()
         nbMax = self.epargne // coutImplantation
@@ -89,6 +89,7 @@ class Siege:
             self.dicProfit = newEl
         elif nomEl == "Scores":
             self.dicScore = newEl
+            
     def impots(self):
         self.epargne = self.epargne*0.8
 
@@ -152,7 +153,7 @@ def fonctionDemande(carte,ville):
     return (qM,qK,Qt)
     
 def profit(Qte,pv):
-    """"Retourne le profit du restaurant ce moi-ci"""
+    """"Retourne le profit du restaurant ce mois-ci"""
     return Qte*(pv-coutMenu) - coutEntretien
     
 def score(marque,ville):
