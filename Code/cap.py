@@ -231,7 +231,7 @@ def affichage():
 
 
 #TEST
-kik = input("Quick est'il de la partie?")
+kik = input("Quick est'il de la partie, oui ou non?")
 if kik == "O" or kik == "oui" or kik == "o" or kik == "Oui" or kik == "y" or kik == "yes":
     k = True
 else:
