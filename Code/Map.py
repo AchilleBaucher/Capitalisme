@@ -116,7 +116,7 @@ Etampes_coords = (175,415,190,425)
 Etampes= canvas.create_rectangle(*Etampes_coords)
 
 Goussainville_coords = (360,125,365,130)
-Goussainville= canvas.create_rectangle(
+Goussainville= canvas.create_rectangle(*Goussainville_coords)
 
 poissy_coords = (197,160,207,175)
 Poissy = canvas.create_rectangle(*poissy_coords)
