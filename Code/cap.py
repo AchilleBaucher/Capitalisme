@@ -319,22 +319,7 @@ if input("Afficher courbes, oui ou non?") == "oui":
     plt.xlabel("Temps (mois)")
     plt.legend(loc='upper right', frameon=False)
 
-
     plt.show()
-
-
-
-#statsNb = dict()
-
-#plt.plot([i for i in range(num)],[satsProfitM[n]["Epargne"] for n in range(num)],color="yellow", linewidth=2.5, linestyle="-", label="McDo") #bleu
-#plt.plot([i for i in range(num)],[satsProfitQ[n]["Epargne"] for n in range(num)],color="red", linewidth=2.5, linestyle="-", label="Quick") #bleu
-#plt.xlabel("Epargne")
-#plt.legend(loc='upper right', frameon=False)
-#plt.xlabel("Temps (mois)")
-#plt.ylabel("Epargne (Euros)")
-#plt.show()
-
-#satsNbM=dict()
 
 
 #CONCLUSION
