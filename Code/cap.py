@@ -9,15 +9,16 @@ carte = dict()
 for ligne in liste_lignes:
     liste_de_mots = ligne.strip().split(",")
     Nom,Rev,nbHab,Rsurface,McDo,Quick,echecM,echecQ,Qtm1,R = liste_de_mots
+    R = float(nbHab)*0.003*float(Rev)/12
     carte[Nom] = {"rev":int(Rev),"nbHab":int(nbHab),"Rsurface":float(Rsurface),"McDo":int(McDo),"Quick":int(Quick),"echecM":int(echecM),"echecQ":int(echecQ),"R":float(R),"Qtm1":int(Qtm1)}
 
 fichier.close()
-
+print(carte["Paris16"]["R"]/8)
 #Donnees
 pVK = 8
 pVM = 8
-tirelire = 0.5
-moisAm = 12
+taxe = 0.6
+moisAm = 24
 moisnul = 10000
 w = 0.3
 coutMenu = 5
@@ -29,7 +30,7 @@ CompteQ = 800000
 #CLASSES
 
 class Siege:
-    def __init__(self,marque,pv,dicProfit,dicScore,epargne):
+    def __init__(self,marque,pv,dicProfit,dicScore,epargne,pref):
         self.marque = marque
         self.pv = pv
         self.dicProfit = dicProfit
@@ -39,6 +40,7 @@ class Siege:
         self.newResto = set()
         self.mois = 0
         self.profit = 0
+        self.pref = pref
 
     def recolte(self):
         """Recolte les profits"""
@@ -92,15 +94,15 @@ class Siege:
             
     def impots(self):
 # ca ns parait etre du caca: taux dimposition trop faible (#palier d'imposition propre à chaque profit d'un resto <3)
-        self.epargne = self.epargne*0.8
+        self.epargne = self.epargne*taxe
 
 #Creation des Sieges
 dic = dict()
 for ville in carte:
     dic[ville] = 0
 
-McDo = Siege("McDo",pVM,dic,dic,CompteM)
-Quick = Siege("Quick",pVK,dic,dic,CompteQ)
+McDo = Siege("McDo",pVM,dic,dic,CompteM,0.99)
+Quick = Siege("Quick",pVK,dic,dic,CompteQ,0.98)
 
 #FONCTIONS
 def EmplCool(dicScore):
@@ -124,13 +126,11 @@ def changeenset(dic):
 
 def fonctionDemande(carte,ville):
     """Retourne la Qte de consommations de menus Quick et McDo en fonction des infos sur la ville"""
-
     dicVille = copy.deepcopy(carte[ville])
     Nm = dicVille["McDo"] #Nombre de McDo dans la ville
     Nk = dicVille["Quick"] # ref Quick
     S = dicVille["Rsurface"] #Qui est la racine carree de la surface
-    R = dicVille["R"] #Revenu max depensable par l'ensemble des habitants
-    
+    R = dicVille["R"] #Revenu max depensable par l'ensemble des habitants   
     
     Qtm1 = dicVille["Qtm1"] #Quantite potentiellement consommee precedemment
     dM = S/(Nm+1) #distance hab-mcdo moyenne
@@ -149,7 +149,7 @@ def fonctionDemande(carte,ville):
 # ligne d'en dessous *0.98 (voir commentaire)
     qK = Qtm1*(math.sqrt(Pm) + 1.5)/(Pk +1)*unouzero(Nk)
     
-    Qt = (qM + (R - Pm*qM)/Pk)*unouzero(Nm+Nk)
+    Qt = (qM + (R - Pm*qK)/Pk)*unouzero(Nm+Nk)
 
     return (qM,qK,Qt)
     
@@ -174,14 +174,18 @@ def score(marque,ville):
     
 def MAJ():
     "Met a jour la quantite consommee et les profits"""
+    QK,QM = 0,0
     dicProfitM = dict()
     dicProfitQ = dict()
     for ville in carte:
         qM,qK,carte[ville]["Qtm1"] = fonctionDemande(carte,ville) #MAJ des demandes
+        QK += qK
+        QM += qM
         dicProfitM[ville] = profit(qM,McDo.pv)*unouzero(carte[ville]["McDo"]) #Etude des profits
         dicProfitQ[ville] = profit(qK,Quick.pv)*unouzero(carte[ville]["Quick"])
     McDo.maj("Profits",dicProfitM)
     Quick.maj("Profits",dicProfitQ)
+    print("nb Clients McDo:",QM,"  Nb Clients Quick:",QK)
 
 def etude():
     dicScoreM = dict()
@@ -240,6 +244,33 @@ else:
     k = False
 num = 0
 m = ''
+
+print("Mois ",num,":")
+etude()
+McDo.choixNewResto()
+print("McDo a ",round(McDo.epargne),"€ et va implanter ici:",McDo.newResto)
+McDo.imp()
+print("Implantation! McDo a paye",len(McDo.newResto)*coutImplantation,"€ et a maintenant",round(McDo.epargne),"€")
+print("Mise jour des demandes")
+MAJ()
+McDo.recolte()
+avant = McDo.epargne
+print("McDo a recolte ",round(McDo.profit),"€ et a maintenant " ,round(McDo.epargne),"€")
+McDo.impots()
+print("McDo a paye ",round(-McDo.epargne + avant),"€ aux impots et a maintenant ",round(McDo.epargne),"€","\n","\n")
+m = affichage()
+
+satsProfitM = dict()
+satsProfitM[0] = McDo.dicProfit
+satsProfitM[0]["Profit total"] = McDo.epargne
+satsProfitQ = dict()
+satsProfitQ[0] = Quick.dicProfit
+satsProfitQ[0]["Profit total"] = Quick.epargne
+
+satsNbM = dict()
+satsNbQ = dict()
+
+num = 0
 while m == '':
     print("Mois ",num,":")
     etude()
@@ -251,11 +282,17 @@ while m == '':
     if k:
         Quick.imp()
     print("Implantation! McDo a paye",len(McDo.newResto)*coutImplantation,"€ et a maintenant",round(McDo.epargne),"€")
-    MAJ()
     print("Mise jour des demandes")
+    satsNbM[num] = {i:carte[i]["McDo"] for i in carte}
+    satsNbQ[num] = {i:carte[i]["Quick"] for i in carte}
+    MAJ()
     McDo.recolte()
+    satsProfitM[num] = McDo.dicProfit
+    satsProfitM[num]["Epargne"] = McDo.epargne
     if k:
         Quick.recolte()
+        satsProfitQ[num] = Quick.dicProfit
+        satsProfitQ[num]["Epargne"] = Quick.epargne
     avant = McDo.epargne
     print("McDo a recolte ",round(McDo.profit),"€ et a maintenant " ,round(McDo.epargne),"€")
     McDo.impots()
@@ -265,29 +302,13 @@ while m == '':
     m = affichage()
     num +=1
 
+print(satsProfitM[0]["Epargne"])
 
 
 
 
-
-
-
-#satsProfitM = dict()
-#satsProfitM[0] = McDo.dicProfit
-#satsProfitM[0]["Profit total"] = McDo.epargne
-#satsProfitQ = dict()
-#satsProfitQ[0] = Quick.dicProfit
-#satsProfitQ[0]["Profit total"] = Quick.epargne
 
 #statsNb = dict()
-
-#Quick.recolte()
-#satsProfitM[num] = McDo.dicProfit
-#satsProfitM[num]["Epargne"] = McDo.epargne
-#satsProfitQ[num] = Quick.dicProfit
-#satsProfitQ[num]["Epargne"] = Quick.epargne
-#num+=1
-#m = affichage()
 
 #plt.plot([i for i in range(num)],[satsProfitM[n]["Epargne"] for n in range(num)],color="yellow", linewidth=2.5, linestyle="-", label="McDo") #bleu
 #plt.plot([i for i in range(num)],[satsProfitQ[n]["Epargne"] for n in range(num)],color="red", linewidth=2.5, linestyle="-", label="Quick") #bleu
