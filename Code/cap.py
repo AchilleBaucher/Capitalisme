@@ -241,7 +241,7 @@ def affichage():
 #SUPERTEST
 retMcDo = 0
 retQuick = 1
-modif = input("Modifier parametres?")
+modif = input("Modifier parametres, oui ou non?")
 if modif == 'o' or modif == 'oui':
     retMcDo = int(input("Le retard du McDo sera de:"))
     retQuick = int(input("Le retard du Quick sera de:"))
