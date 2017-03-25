@@ -41,6 +41,7 @@ class Siege:
         self.mois = 0
         self.profit = 0
         self.pref = pref
+        self.nbR = 0
 
     def recolte(self):
         """Recolte les profits"""
@@ -84,6 +85,7 @@ class Siege:
         """Implante les nouveaux restaurants"""
         for ville in self.newResto:
             carte[ville][self.marque] += 1
+            self.nbR += 1
         self.epargne -= len(self.newResto)*coutImplantation
 
     def maj(self,nomEl,newEl):
@@ -236,75 +238,89 @@ def affichage():
     return affichage()
 
 
-#TEST
-kik = input("Quick est'il de la partie, oui ou non?")
-if kik == "O" or kik == "oui" or kik == "o" or kik == "Oui" or kik == "y" or kik == "yes":
-    k = True
-else:
-    k = False
+#SUPERTEST
+retMcDo = 0
+retQuick = 1
+modif = input("Modifier parametres?")
+if modif == 'o' or modif == 'oui':
+    retMcDo = int(input("Le retard du McDo sera de:"))
+    retQuick = int(input("Le retard du Quick sera de:"))
+
+k = False
+m = False
 num = 0
-m = ''
-
-print("Mois ",num,":")
-etude()
-McDo.choixNewResto()
-print("McDo a ",round(McDo.epargne),"€ et va implanter ici:",McDo.newResto)
-McDo.imp()
-print("Implantation! McDo a paye",len(McDo.newResto)*coutImplantation,"€ et a maintenant",round(McDo.epargne),"€")
-print("Mise jour des demandes")
-MAJ()
-McDo.recolte()
-avant = McDo.epargne
-print("McDo a recolte ",round(McDo.profit),"€ et a maintenant " ,round(McDo.epargne),"€")
-McDo.impots()
-print("McDo a paye ",round(-McDo.epargne + avant),"€ aux impots et a maintenant ",round(McDo.epargne),"€","\n","\n")
-m = affichage()
-
-satsProfitM = dict()
-satsProfitM[0] = McDo.dicProfit
-satsProfitM[0]["Profit total"] = McDo.epargne
-satsProfitQ = dict()
-satsProfitQ[0] = Quick.dicProfit
-satsProfitQ[0]["Profit total"] = Quick.epargne
 
 satsNbM = dict()
 satsNbQ = dict()
+satsEpargneM = dict()
+satsEpargneQ = dict()
 
-num = 0
-while m == '':
+M = ''
+while M == '':
     print("Mois ",num,":")
+    if num == retMcDo:
+        m = True
+    if num == retQuick:
+        k = True
+
     etude()
-    McDo.choixNewResto()
+    if m:
+        McDo.choixNewResto()
+        print("McDo a ",round(McDo.epargne),"€ et va implanter ici:",McDo.newResto)
     if k:
         Quick.choixNewResto()
-    print("McDo a ",round(McDo.epargne),"€ et va implanter ici:",McDo.newResto)
-    McDo.imp()
+        print("Quick a ",round(Quick.epargne),"€ et va implanter ici:",Quick.newResto)
+
+    if m:
+        McDo.imp()
+        print("Implantation! McDo a paye",len(McDo.newResto)*coutImplantation,"€ et a maintenant",round(McDo.epargne),"€")
     if k:
         Quick.imp()
-    print("Implantation! McDo a paye",len(McDo.newResto)*coutImplantation,"€ et a maintenant",round(McDo.epargne),"€")
+        print("Implantation! Quick a paye",len(Quick.newResto)*coutImplantation,"€ et a maintenant",round(Quick.epargne),"€")  
+    satsNbM[num] = McDo.nbR
+    satsNbQ[num] = Quick.nbR
+
     print("Mise jour des demandes")
-    satsNbM[num] = {i:carte[i]["McDo"] for i in carte}
-    satsNbQ[num] = {i:carte[i]["Quick"] for i in carte}
     MAJ()
-    McDo.recolte()
-    satsProfitM[num] = McDo.dicProfit
-    satsProfitM[num]["Epargne"] = McDo.epargne
+    if m:
+        McDo.recolte()
+        print("McDo a recolte ",round(McDo.profit),"€ et a maintenant " ,round(McDo.epargne),"€")
     if k:
         Quick.recolte()
-        satsProfitQ[num] = Quick.dicProfit
-        satsProfitQ[num]["Epargne"] = Quick.epargne
-    avant = McDo.epargne
-    print("McDo a recolte ",round(McDo.profit),"€ et a maintenant " ,round(McDo.epargne),"€")
-    McDo.impots()
+        print("Quick a recolte ",round(Quick.profit),"€ et a maintenant " ,round(Quick.epargne),"€")
+
+    avantM = McDo.epargne
+    avantQ = Quick.epargne
+    if  m:
+        McDo.impots()
+        print("McDo a paye ",round(-McDo.epargne + avantM),"€ aux impots et a maintenant ",round(McDo.epargne),"€")
     if k:
         Quick.impots()
-    print("McDo a paye ",round(-McDo.epargne + avant),"€ aux impots et a maintenant ",round(McDo.epargne),"€","\n","\n")
-    m = affichage()
+        print("Quick a paye ",round(-Quick.epargne + avantQ),"€ aux impots et a maintenant ",round(Quick.epargne),"€")
+    satsEpargneM[num] = McDo.epargne
+    satsEpargneQ[num] = Quick.epargne
+
+    print("\n","\n")
+    M = affichage()
     num +=1
 
-print(satsProfitM[0]["Epargne"])
+if input("Afficher courbes, oui ou non?") == "oui":
+    plt.subplot(211)
+    plt.plot([i for i in range(num)],[satsEpargneM[n] for n in range(num)],color="yellow", linewidth=2.5, linestyle="-", label="McDo")
+    plt.plot([i for i in range(num)],[satsEpargneQ[n] for n in range(num)],color="red", linewidth=2.5, linestyle="-", label="Quick")
+    plt.ylabel("Epargne (Euros)")
+    plt.xlabel("Temps (mois)")
+    plt.legend(loc='upper right', frameon=False)
+
+    plt.subplot(212)
+    plt.plot([i for i in range(num)],[satsNbM[n] for n in range(num)],color="yellow", linewidth=2.5, linestyle="-", label="McDo")
+    plt.plot([i for i in range(num)],[satsNbQ[n] for n in range(num)],color="red", linewidth=2.5, linestyle="-", label="Quick")
+    plt.ylabel("Nombre restaurants")
+    plt.xlabel("Temps (mois)")
+    plt.legend(loc='upper right', frameon=False)
 
 
+    plt.show()
 
 
 
