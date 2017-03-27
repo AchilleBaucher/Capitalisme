@@ -26,6 +26,8 @@ coutEntretien = 30000
 coutImplantation = 800000
 CompteM = 800000
 CompteQ = 800000
+impotprofit = 0.67
+impotsiege = 0.93
 
 #CLASSES
 
@@ -49,7 +51,7 @@ class Siege:
         for ville in self.dicProfit:
             biff += self.dicProfit[ville]
         self.profit = biff
-        self.epargne = self.epargne+biff
+        self.epargne = self.epargne+ biff*impotprofit
 
     def desimp(self):
         """Desimplante et ajoute des malus si necesaire"""
@@ -96,7 +98,7 @@ class Siege:
             
     def impots(self):
 # ca ns parait etre du caca: taux dimposition trop faible (#palier d'imposition propre à chaque profit d'un resto <3)
-        self.epargne = self.epargne*taxe
+        self.epargne = self.epargne*impotsiege
 
 #Creation des Sieges
 dic = dict()
@@ -140,8 +142,9 @@ def fonctionDemande(carte,ville):
 
     Pk = Quick.pv + w*dK
     Pm = McDo.pv + w*dM
-
-    if Qtm1 == 0: #Cas ou la ville n'a jamais eu de fast-food
+    travaux = False
+    if Qtm1 == 0:
+        travaux = True #Cas ou la ville n'a jamais eu de fast-food
         if Nm == 1: #Si mcdo s'est implante, alors:
             Qtm1 = R/McDo.pv
         if Nk == 1:
@@ -254,6 +257,12 @@ satsNbM = dict()
 satsNbQ = dict()
 satsEpargneM = dict()
 satsEpargneQ = dict()
+dicmap = dict()
+
+caca = dict()
+for i in carte:
+    caca[i] = (0,0)
+dicmap[0] = copy.deepcopy(caca)
 
 M = ''
 while M == '':
@@ -303,7 +312,12 @@ while M == '':
     print("\n","\n")
     M = affichage()
     num +=1
-
+    for i in carte:
+        caca[i] = (carte[i]["McDo"] ,carte[i]["Quick"])
+    pipi =copy.deepcopy(caca)
+    dicmap[num] = pipi
+    
+    
 if input("Afficher courbes, oui ou non?") == "oui":
     plt.subplot(211)
     plt.plot([i for i in range(num)],[satsEpargneM[n] for n in range(num)],color="yellow", linewidth=2.5, linestyle="-", label="McDo")
@@ -321,7 +335,15 @@ if input("Afficher courbes, oui ou non?") == "oui":
 
     plt.show()
 
-
+f = open("map.txt","w")
+for i in dicmap:
+    f.write("#" + str(i))
+    f.write("\n")
+    for j in dicmap[i]:
+        a,b = dicmap[i][j]
+        ligne =str(j)+","+str(a)+","+str(b)+"\n"
+        f.write(ligne)
+f.close()
 #CONCLUSION
 #C'est pas normal car mcdo a la meme evolution avec ou sans quick
 #Il faut prendre en compte la preference et l'augmentation de R dans la consommation
@@ -329,10 +351,10 @@ if input("Afficher courbes, oui ou non?") == "oui":
 #changement de prix de vente reste a faire
 #implantation trop rapide
 #riche pauvres
-#taile de la ville
+#taille de la ville
 #proximite avec autres villes
 #tourisme
-#publiite
+#publicite
 #il faudrait rajouter le fait qu'ils doivent construire le mcdo et qu'ils ont un profit nul le premier mois
 #voilaaaaa
 
