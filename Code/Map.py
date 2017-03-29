@@ -1,6 +1,7 @@
 from tkinter import*
 import random
 import copy
+import time
 
 #Page
 Pageprincipale = Tk()
@@ -253,6 +254,68 @@ coords = [Paris1_coords, Paris2_coords, Paris3_coords, Paris4_coords, Paris5_coo
 
 Villes = [(Paris1, "Paris1"), (Paris2,"Paris2"), (Paris3,"Paris3"), (Paris4,"Paris4"), (Paris5,"Paris5"), (Paris6,"Paris6"), (Paris7,"Paris7"), (Paris8,"Paris8"), (Paris9,"Paris9"), (Paris10,"Paris10"), (Paris11,"Paris11"), (Paris12,"Paris12"),  (Paris13,"Paris13"), (Paris14,"Paris14"),  (Paris16,"Paris16"), (Paris17,"Paris17"), (Paris18,"Paris18"), (Paris19,"Paris19"), (Paris20,"Paris20"), (StDenis,"Saint-Denis"), (BoulogneBilancourt,"Boulogne-Billancourt"), (Versailles,"Versailles"), (Creteil,"Creteil"), (NeuillySurSeine,"Neuilly-Sur-Seine"), (Cergy,"Cergy"), (Rambouillet,"Rambouillet"),( Meaux,"Meaux"), (Evry,"Evry"), (Orsay,"Orsay"), (Melun,"Melun"), (Etampes,"Etampes"), (Goussainville,"Goussainville"), (Poissy,"Poissy"), (Villepinte,"Villepinte"), (Coulommiers,"Coulommiers"), (ClayeSouilly,"Claye-Souilly"), (BrieComteRobert,"Brie-Comte-Robert"), (Dourdan,"Dourdan"), (GretzArmainvilliers,"Gretz-Armainvilliers"), (Thoiry,"Thoiry"), (LIsleAdam,"L’Isle-Adam"), (MagnyenVexin,"Magny-en-Vexin"), (LesMureaux,"Les Mureaux"), (Limay,"Limay"), (MontereauFaultYonne,"Montereau-Fault-Yonne"), (Provins,"Provins"), (Nemours,"Nemours"), (Guyancourt,"Guyancourt"), (Elancourt,"Elancourt"), (Chessy,"Chessy"), (Nangis,"Nangis"), (IssylesMoulineaux,"Issy-les-Moulineux"), (LaFertesousJouarre,"La Ferté-sous-Jouarre"), (Noisylegrand,"Noisy-le-grand"), (SaintGermainenLaye,"Saint-Germain-en-Laye"), (LaCellesaintCloud,"La Celle-saint-Cloud"), (RosnysousBois,"Rosny-sous-Bois"), (Franconville,"Franconville"), (Gonesse,"Gonesse"), (VillierssurMarne,"Villiers-sur-Marne"), (Torcy,"Torcy"), (Plaisir,"Plaisir"), (Palaiseau,"Palaiseau"), (ManteslaJolie,"Mantes-la-Jolie"), (Sarcelles,"Sarcelles"), (LePerrayenYvelines,"Le Perray-en-Yvelines"), (DammartinenGoele,"Dammartin-en-Goele"), (Serris,"Serris"), (Bombon,"Bombon"), (Bretignysurorge,"Bretigny-sur-orge"), (Avon,"Avon"), (Saintmaurdesfosses,"Saint-maur-des-fosses"), (Nanterre,"Nanterre")]
 
+
+
+
+
+def rectangle(ListeDictMcDo,ListeDictQuick):#,SauvegardeDictionnaireMcDo,SauvegardeDictionnaireQuick
+    random.seed(1)
+    
+    
+    for j in range(1,len(ListeDictMcDo)):
+        canvas.create_image(0, 0, anchor=NW, image=PhotoIDF)
+        DictMcDo = ListeDictMcDo[j]
+        DictQuick = ListeDictQuick[j]
+        for i in range(len(Villes)):
+            
+            xhaut, yhaut, xbas, ybas = coords[i]
+            #for h  in DictMcDo:
+            
+            nomVille = Villes[i][1]
+            h = int(DictMcDo[nomVille])
+            #a = SauvegardeDictionnaireMcDo[nomVille]
+           
+                #print(xhaut, yhaut, xbas, ybas, coords[i])    
+            #if a!=h: #DictMcDo[h] != SauvegardeDictionnaireMcDo[h]:
+               # for j in range(a,h):
+           # if int(SauvegardeDictionnaireMcDo[nomVille])!=int(DictMcDo[nomVille]):
+            f#or a in range(int(SauvegardeDictionnaireMcDo[nomVille]),int(DictMcDo[nomVille])):
+            if h!=0:
+                Emplacementx = random.randint(xhaut, xbas)
+                Emplacementy = random.randint(yhaut, ybas)
+                print(Emplacementx, Emplacementy)
+                canvas.create_rectangle(Emplacementx, Emplacementy, Emplacementx+5, Emplacementy+5,fill = "yellow")
+                if h > 1:
+                    canvas.create_text(Emplacementx, Emplacementy,text=h,fill = 'yellow')
+                        
+            nomVille2 = Villes[i][1]
+            p = int(DictQuick[nomVille2])
+                    #for k  in DictQuick:        
+                #if  DictQuick[k] != SauvegardeDictionnaireQuick[k]:
+            #if int(SauvegardeDictionnaireQuick[nomVille])!=int(DictQuick[nomVille]):
+                #for a in range(int(SauvegardeDictionnaireQuick[nomVille]),int(DictQuick[nomVille])):
+            if p!= 0:
+            
+                        #for j in range(SauvegardeDictionnaireQuick[k],DictQuick[k]):
+            
+                Emplacementx = random.randint(xhaut, xbas)
+                Emplacementy = random.randint(yhaut, ybas)
+                canvas.create_rectangle(Emplacementx, Emplacementy, Emplacementx+5, Emplacementy+5, fill = "red")    
+                
+                if p > 1:
+                    canvas.create_text(Emplacementx, Emplacementy,text=p,fill = 'red')
+                
+            
+            
+            
+            #SauvegardeDictionnaireMcDo = DictMcDo
+        
+            #SauvegardeDictionnaireQuick = DictQuick
+           
+            #rectangle(ListeDictMcDo,ListeDictQuick,DictMcDo,DictQuick)
+
+            
+            
 DictMcDo = dict()
 DictQuick = dict()
 ListeDictMcDo = []
@@ -260,13 +323,6 @@ ListeDictQuick = []
 temp = dict()
 f = open("map.txt")
 liste_lignes = f.readlines()
-for i in liste_lignes:
-    if i[0] == "#":
-        ListeDictMcDo.append(copy.deepcopy(DictMcDo))
-        ListeDictQuick.append(copy.deepcopy(DictQuick))
-    else:
-        liste_de_mots = i.strip().split(",")
-        DictMcDo[liste_de_mots[0]],DictQuick[liste_de_mots[0]] = int(liste_de_mots[1]) , int(liste_de_mots[2])
         
 f.close()
  
@@ -281,63 +337,36 @@ f.close()
 
 #SauvegardeDictionnaireQuick = {'Paris15':0,'Saint-Denis': 0, 'Paris19': 0, 'Paris5': 0, 'Plaisir': 0, 'Paris4': 0, 'Paris1': 0, 'Etampes': 0, 'Paris18': 0, 'Thoiry': 0, 'Dourdan': 0, 'Claye-Souilly': 0, 'Magny-en-Vexin': 0, 'Gonesse': 0, 'Paris3': 0, 'Poissy': 0, 'Nangis': 0, 'Les Mureaux': 0, 'Melun': 0, 'Meaux': 0, 'Brie-Comte-Robert': 0, 'Paris13': 0, 'Paris17': 0, 'Paris16': 0, 'Paris20': 0, 'Villiers-sur-Marne': 0, 'Paris6': 0, 'Coulommiers': 0, 'Serris': 0, 'Limay': 0, 'Gretz-Armainvilliers': 0, 'Versailles': 0, 'La Celle-saint-Cloud': 0, 'Palaiseau': 0, 'Boulogne-Billancourt': 0, 'Villepinte': 0, 'Noisy-le-grand': 0, 'Chessy': 0, 'Saint-Germain-en-Laye': 0, 'Avon': 0, 'Nemours': 0, 'Bombon': 0, 'Franconville': 0, 'Paris10': 0, 'Goussainville': 0, 'Rambouillet': 0, 'Paris8': 0, 'Paris11': 0, 'Cergy': 0, 'Le Perray-en-Yvelines': 0, 'Guyancourt': 0, 'Paris7': 0, 'Montereau-Fault-Yonne': 0, 'Paris2': 0, 'La Ferté-sous-Jouarre': 0, 'Rosny-sous-Bois': 0, 'Provins': 0, 'Neuilly-Sur-Seine': 0, 'Paris14': 0, 'Dammartin-en-Goele': 0, 'Paris12': 0, 'Orsay': 0, 'Saint-maur-des-fosses': 0, 'Creteil': 0, 'Elancourt': 0, 'Torcy': 0, 'Evry': 0, 'Sarcelles': 0, 'Bretigny-sur-orge': 0, 'Mantes-la-Jolie': 0, 'Issy-les-Moulineux': 0, 'L’Isle-Adam': 0, 'Nanterre': 0, 'Paris9': 0}
 
-
-for j in range(1,len(ListeDictMcDo)):
-    DictMcDo = ListeDictMcDo[j]
-    DictQuick = ListeDictQuick[j]
-    for i in range(len(Villes)):
-        xhaut, yhaut, xbas, ybas = coords[i]
-        #for h  in DictMcDo:
-        
-        nomVille = Villes[i][1]
-        h = int(DictMcDo[nomVille])
-        #a = SauvegardeDictionnaireMcDo[nomVille]
-        print(h)
-            #print(xhaut, yhaut, xbas, ybas, coords[i])    
-        #if a!=h: #DictMcDo[h] != SauvegardeDictionnaireMcDo[h]:
-           # for j in range(a,h):
-        if h!=0:
-                
-            Emplacementx = random.randint(xhaut, xbas)
-            Emplacementy = random.randint(yhaut, ybas)
-            print(Emplacementx, Emplacementy)
-            canvas.create_rectangle(Emplacementx, Emplacementy, Emplacementx+5, Emplacementy+5,fill = "yellow")
-            if h > 1:
-                canvas.create_text(Emplacementx, Emplacementy,text=h,fill = 'yellow')
+def lire_mois(lignes):
+    dic_mc_dos = {}
+    dic_quicks = {}
+    for l in lignes:
+        if l.startswith("#"):
+            break
+        nom,mcdos,quicks = l.split(",")
+        dic_mc_dos[nom] = int(mcdos)
+        dic_quicks[nom] = int(quicks)
+    return dic_mc_dos,dic_quicks
             
-        nomVille2 = Villes[i][1]
-        p = int(DictQuick[nomVille2])
-        #for k  in DictQuick:        
-        #if  DictQuick[k] != SauvegardeDictionnaireQuick[k]:
-        if p!= 0:
-        
-                    #for j in range(SauvegardeDictionnaireQuick[k],DictQuick[k]):
-        
-            Emplacementx = random.randint(xhaut, xbas)
-            Emplacementy = random.randint(yhaut, ybas)
-            canvas.create_rectangle(Emplacementx, Emplacementy, Emplacementx+5, Emplacementy+5, fill = "red")    
-            
-            if p > 1:
-                canvas.create_text(Emplacementx, Emplacementy,text=p,fill = 'red')
-    
-        
-        
-        SauvegardeDictionnaireMcDo = DictMcDo
-    
-        SauvegardeDictionnaireQuick = DictQuick
-    
-    
-
-
-
-
-
-
-
-
-
-    
 #Lancerment du programme
 canvas.pack()
-input()
-Pageprincipale.mainloop()
+liste_lignes = iter(liste_lignes)
+next(liste_lignes)
+
+#SauvegardeDictionnaireQuick=dict()
+#SauvegardeDictionnaireMcDo=dict()
+while True:
+    
+    DictMcDo,DictQuick = lire_mois(liste_lignes)
+    ListeDictMcDo.append(DictMcDo)
+    ListeDictQuick.append(DictQuick)  
+    rectangle(ListeDictMcDo,ListeDictQuick)#,SauvegardeDictionnaireMcDo,SauvegardeDictionnaireQuick
+    #SauvegardeDictionnaireQuick=DictMcDo
+    #SauvegardeDictionnaireMcDo=DictQuick
+    Pageprincipale.update_idletasks()
+    Pageprincipale.update()
+    print(ListeDictMcDo)
+    time.sleep(2)
+    
+    
+    
