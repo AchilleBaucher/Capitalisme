@@ -259,7 +259,7 @@ Villes = [(Paris1, "Paris1"), (Paris2,"Paris2"), (Paris3,"Paris3"), (Paris4,"Par
 
 
 def rectangle(ListeDictMcDo,ListeDictQuick):#,SauvegardeDictionnaireMcDo,SauvegardeDictionnaireQuick
-    random.seed(1)
+    
     
     
     for j in range(1,len(ListeDictMcDo)):
@@ -281,9 +281,9 @@ def rectangle(ListeDictMcDo,ListeDictQuick):#,SauvegardeDictionnaireMcDo,Sauvega
            # if int(SauvegardeDictionnaireMcDo[nomVille])!=int(DictMcDo[nomVille]):
             f#or a in range(int(SauvegardeDictionnaireMcDo[nomVille]),int(DictMcDo[nomVille])):
             if h!=0:
-                Emplacementx = random.randint(xhaut, xbas)
-                Emplacementy = random.randint(yhaut, ybas)
-                print(Emplacementx, Emplacementy)
+                Emplacementx=(xhaut+xbas)/2+2
+                Emplacementy=(yhaut+ybas)/2+2
+                
                 canvas.create_rectangle(Emplacementx, Emplacementy, Emplacementx+5, Emplacementy+5,fill = "yellow")
                 if h > 1:
                     canvas.create_text(Emplacementx, Emplacementy,text=h,fill = 'yellow')
@@ -298,8 +298,8 @@ def rectangle(ListeDictMcDo,ListeDictQuick):#,SauvegardeDictionnaireMcDo,Sauvega
             
                         #for j in range(SauvegardeDictionnaireQuick[k],DictQuick[k]):
             
-                Emplacementx = random.randint(xhaut, xbas)
-                Emplacementy = random.randint(yhaut, ybas)
+                Emplacementx=(xhaut+xbas)/2-2
+                Emplacementy=(yhaut+ybas)/2-2
                 canvas.create_rectangle(Emplacementx, Emplacementy, Emplacementx+5, Emplacementy+5, fill = "red")    
                 
                 if p > 1:
