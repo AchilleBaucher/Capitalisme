@@ -13,7 +13,6 @@ for ligne in liste_lignes:
     carte[Nom] = {"rev":int(Rev),"nbHab":int(nbHab),"Rsurface":float(Rsurface),"McDo":int(McDo),"Quick":int(Quick),"echecM":int(echecM),"echecQ":int(echecQ),"R":float(R),"Qtm1":int(Qtm1)}
 
 fichier.close()
-print(carte["Paris16"]["R"]/8)
 #Donnees
 pVK = 8
 pVM = 8
@@ -28,7 +27,10 @@ CompteM = 800000
 CompteQ = 800000
 impotprofit = 0.67
 impotsiege = 0.93
-
+ela = 1.5 #par rapport à moi
+elc = 0.5     # par rapport à l'autre
+para=11
+pref = 50.0
 #CLASSES
 
 class Siege:
@@ -128,36 +130,42 @@ def changeenset(dic):
         se.add(a)
     return se
 
+def ph(pa):
+    return (1 - 1/(pa+1))**2
+
+def pm(pa):
+    return (1/(pa+1))**2
+
+def nh(nb):
+    return (1/(nb+1))
+    
+def nm(na):
+    return (1 - 1/(na+1))
+
+def prefe(p):
+    return (0.8*math.atan(p/50 -1)*100/math.pi + 50)
+
 def fonctionDemande(carte,ville):
-    """Retourne la Qte de consommations de menus Quick et McDo en fonction des infos sur la ville"""
     dicVille = copy.deepcopy(carte[ville])
     Nm = dicVille["McDo"] #Nombre de McDo dans la ville
     Nk = dicVille["Quick"] # ref Quick
+    if Nm + Nk == 0:
+        return 0,0,0
     S = dicVille["Rsurface"] #Qui est la racine carree de la surface
-    R = dicVille["R"] #Revenu max depensable par l'ensemble des habitants   
-    
-    Qtm1 = dicVille["Qtm1"] #Quantite potentiellement consommee precedemment
-    dM = S/(Nm+1) #distance hab-mcdo moyenne
-    dK = S/(Nk+1)   
+    hab = dicVille["nbHab"] #Revenu max depensable par l'ensemble des habitants  
+    Qmax = hab*4
+    prefM = (ph(Quick.pv)*pm(McDo.pv)*prefe(pref)/(ph(McDo.pv)*pm(Quick.pv)*prefe(100-pref)+ph(Quick.pv)*pm(McDo.pv)*prefe(pref)))
+    prefQ = 1-prefM #Preference des gens pour le quick ou le mcdo
+    #print("Preference pour mcdo:",prefM," ,preference pour quick:",prefQ)
+    pM = (nh(Nk)*nm(Nm)*ph(Quick.pv)*pm(McDo.pv)*prefe(pref)/(nh(Nm)*nm(Nk)*ph(McDo.pv)*pm(Quick.pv)*prefe(100-pref)+nh(Nk)*nm(Nm)*ph(Quick.pv)*pm(McDo.pv)*prefe(pref)))
+    pQ = 1-pM #Part du marche de quick ou mcdo dans la ville
+    #qM = pM*Qmax*(1-1.05/(1.05+0.9*Nm**2))*(1-S*0.03)*(math.atan(10-McDo.pv/1.3)*1/math.pi+0.5)
+    #qK = pQ*Qmax*(1-1.05/(1.05+0.9*Nk**2))*(1-S*0.03)*(math.atan(10-Quick.pv/1.3)*1/math.pi+0.5)
+    qT = Qmax*(1-1.05/(1.05+0.9*(2*(prefM*Nm+prefQ*Nk))**2))*(1-S*0.03)*(math.atan(10-(McDo.pv*pM+Quick.pv*pQ)/1.3)*1/math.pi+0.5)
+    qM = qT*pM
+    qK = qT*pQ
+    return (qM,qK,qT) 
 
-    Pk = Quick.pv + w*dK
-    Pm = McDo.pv + w*dM
-    travaux = False
-    if Qtm1 == 0:
-        travaux = True #Cas ou la ville n'a jamais eu de fast-food
-        if Nm == 1: #Si mcdo s'est implante, alors:
-            Qtm1 = R/McDo.pv
-        if Nk == 1:
-            Qtm1 = R/Quick.pv
-
-    qM = Qtm1*(math.sqrt(Pk) + 1.5)/(Pm +1)*unouzero(Nm)
-# ligne d'en dessous *0.98 (voir commentaire)
-    qK = Qtm1*(math.sqrt(Pm) + 1.5)/(Pk +1)*unouzero(Nk)
-    
-    Qt = (qM + (R - Pm*qK)/Pk)*unouzero(Nm+Nk)
-
-    return (qM,qK,Qt)
-    
 def profit(Qte,pv):
     """"Retourne le profit du restaurant ce mois-ci"""
     return Qte*(pv-coutMenu) - coutEntretien
@@ -190,7 +198,7 @@ def MAJ():
         dicProfitQ[ville] = profit(qK,Quick.pv)*unouzero(carte[ville]["Quick"])
     McDo.maj("Profits",dicProfitM)
     Quick.maj("Profits",dicProfitQ)
-    print("nb Clients McDo:",QM,"  Nb Clients Quick:",QK)
+    #print("nb Clients McDo:",QM,"  Nb Clients Quick:",QK)
 
 def etude():
     dicScoreM = dict()
@@ -273,6 +281,7 @@ while M == '':
         k = True
 
     etude()
+    #print("McDo, Paris16: ",McDo.dicScore["Paris16"],", Saint Dennis: ",McDo.dicScore["Saint-Denis"],"Quick, Paris16: ",Quick.dicScore["Paris16"],", Saint Dennis: ",Quick.dicScore["Saint-Denis"])
     if m:
         McDo.choixNewResto()
         print("McDo a ",round(McDo.epargne),"€ et va implanter ici:",McDo.newResto)
@@ -291,6 +300,7 @@ while M == '':
 
     print("Mise jour des demandes")
     MAJ()
+
     if m:
         McDo.recolte()
         print("McDo a recolte ",round(McDo.profit),"€ et a maintenant " ,round(McDo.epargne),"€")
@@ -316,8 +326,8 @@ while M == '':
         caca[i] = (carte[i]["McDo"] ,carte[i]["Quick"])
     pipi =copy.deepcopy(caca)
     dicmap[num] = pipi
-    
-    
+ 
+   
 if input("Afficher courbes, oui ou non?") == "oui":
     plt.subplot(211)
     plt.plot([i for i in range(num)],[satsEpargneM[n] for n in range(num)],color="yellow", linewidth=2.5, linestyle="-", label="McDo")
@@ -344,6 +354,7 @@ for i in dicmap:
         ligne =str(j)+","+str(a)+","+str(b)+"\n"
         f.write(ligne)
 f.close()
+
 #CONCLUSION
 #C'est pas normal car mcdo a la meme evolution avec ou sans quick
 #Il faut prendre en compte la preference et l'augmentation de R dans la consommation
