@@ -1,6 +1,7 @@
 import math
 import copy
 from matplotlib import pyplot as plt
+import random
 
 #Fabriquation du dictionnaire des villes
 fichier = open("villes.txt")
@@ -250,6 +251,20 @@ def affichage():
 
 
 #SUPERTEST
+satsNbM = dict()
+satsNbQ = dict()
+satsEpargneM = dict()
+satsEpargneQ = dict()
+dicmap = dict()
+
+M = ''
+num = 0
+caca = dict()
+for i in carte:
+    caca[i] = (0,0)
+dicmap[0] = copy.deepcopy(caca)
+
+
 retMcDo = 0
 retQuick = 1
 modif = input("Modifier parametres, oui ou non?")
@@ -259,66 +274,80 @@ if modif == 'o' or modif == 'oui':
 
 k = False
 m = False
-num = 0
 
-satsNbM = dict()
-satsNbQ = dict()
-satsEpargneM = dict()
-satsEpargneQ = dict()
-dicmap = dict()
+print("\n")
 
-caca = dict()
-for i in carte:
-    caca[i] = (0,0)
-dicmap[0] = copy.deepcopy(caca)
-
-M = ''
 while M == '':
     print("Mois ",num,":")
+
     if num == retMcDo:
         m = True
     if num == retQuick:
         k = True
 
-    etude()
-    #print("McDo, Paris16: ",McDo.dicScore["Paris16"],", Saint Dennis: ",McDo.dicScore["Saint-Denis"],"Quick, Paris16: ",Quick.dicScore["Paris16"],", Saint Dennis: ",Quick.dicScore["Saint-Denis"])
-    if m:
-        McDo.choixNewResto()
-        print("McDo a ",round(McDo.epargne),"€ et va implanter ici:",McDo.newResto)
-    if k:
-        Quick.choixNewResto()
-        print("Quick a ",round(Quick.epargne),"€ et va implanter ici:",Quick.newResto)
+    al = random.random()
+    if al > 1/2:
+        if m:
+            if k:
+                print("McDo commence:")
+            etude()
+            McDo.choixNewResto()
+            print("McDo a ",round(McDo.epargne),"€ et va implanter ici:",McDo.newResto)
+            McDo.imp()
+            print("Implantation! McDo a paye",len(McDo.newResto)*coutImplantation,"€ et a maintenant",round(McDo.epargne),"€")
+            print("Mise jour des demandes","\n")
+            MAJ()
 
-    if m:
-        McDo.imp()
-        print("Implantation! McDo a paye",len(McDo.newResto)*coutImplantation,"€ et a maintenant",round(McDo.epargne),"€")
-    if k:
-        Quick.imp()
-        print("Implantation! Quick a paye",len(Quick.newResto)*coutImplantation,"€ et a maintenant",round(Quick.epargne),"€")  
-    satsNbM[num] = McDo.nbR
-    satsNbQ[num] = Quick.nbR
+        if k:
+            if m:
+                print("Au tour de quick maintenant")
+            etude()
+            Quick.choixNewResto()
+            print("Quick a ",round(Quick.epargne),"€ et va implanter ici:",Quick.newResto)
+            Quick.imp()
+            print("Implantation! Quick a paye",len(Quick.newResto)*coutImplantation,"€ et a maintenant",round(Quick.epargne),"€")  
+            print("Mise jour des demandes","\n")
+            MAJ()
+  
+    else:
+        if k:
+            if m:
+                print("Quick commence")
+            etude()
+            Quick.choixNewResto()
+            print("Quick a ",round(Quick.epargne),"€ et va implanter ici:",Quick.newResto)
+            Quick.imp()
+            print("Implantation! Quick a paye",len(Quick.newResto)*coutImplantation,"€ et a maintenant",round(Quick.epargne),"€")  
+            print("Mise jour des demandes","\n")
+            MAJ()   
 
-    print("Mise jour des demandes")
-    MAJ()
-
+        if m:
+            if k:
+                print("Au tout de Mcdo maintenant")
+            etude()
+            McDo.choixNewResto()
+            print("McDo a ",round(McDo.epargne),"€ et va implanter ici:",McDo.newResto)
+            McDo.imp()
+            print("Implantation! McDo a paye",len(McDo.newResto)*coutImplantation,"€ et a maintenant",round(McDo.epargne),"€")
+            print("Mise jour des demandes","\n")
+            MAJ()
     if m:
         McDo.recolte()
-        print("McDo a recolte ",round(McDo.profit),"€ et a maintenant " ,round(McDo.epargne),"€")
-    if k:
-        Quick.recolte()
-        print("Quick a recolte ",round(Quick.profit),"€ et a maintenant " ,round(Quick.epargne),"€")
-
-    avantM = McDo.epargne
-    avantQ = Quick.epargne
-    if  m:
+        avantM = McDo.epargne
+        print("McDo a recolte ",round(McDo.profit),"€, paye",round((1-impotprofit)*(McDo.profit)),"€ et a maintenant " ,round(McDo.epargne),"€")
         McDo.impots()
         print("McDo a paye ",round(-McDo.epargne + avantM),"€ aux impots et a maintenant ",round(McDo.epargne),"€")
     if k:
+        Quick.recolte()
+        print("Quick a recolte ",round(Quick.profit),"€, paye",round((1-impotprofit)*(Quick.profit)),"€ et a maintenant " ,round(Quick.epargne),"€")        
+        avantQ = Quick.epargne
         Quick.impots()
         print("Quick a paye ",round(-Quick.epargne + avantQ),"€ aux impots et a maintenant ",round(Quick.epargne),"€")
-    satsEpargneM[num] = McDo.epargne
+ 
     satsEpargneQ[num] = Quick.epargne
-
+    satsEpargneM[num] = McDo.epargne
+    satsNbM[num] = McDo.nbR
+    satsNbQ[num] = Quick.nbR
     print("\n","\n")
     M = affichage()
     num +=1
