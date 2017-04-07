@@ -18,7 +18,7 @@ fichier.close()
 pVK = 8
 pVM = 8
 taxe = 0.6
-moisAm = 24
+moisAm = 12
 moisnul = 10000
 w = 0.3
 coutMenu = 5
@@ -28,9 +28,9 @@ CompteM = 800000
 CompteQ = 800000
 impotprofit = 0.67
 impotsiege = 0.93
-ela = 1.5 #par rapport à moi
-elc = 0.5     # par rapport à l'autre
-para=11
+#ela = 1.5 #par rapport à moi
+#elc = 0.5     # par rapport à l'autre
+#para=11
 pref = 50.0
 #CLASSES
 
@@ -152,6 +152,7 @@ def fonctionDemande(carte,ville):
     Nk = dicVille["Quick"] # ref Quick
     if Nm + Nk == 0:
         return 0,0,0
+
     S = dicVille["Rsurface"] #Qui est la racine carree de la surface
     hab = dicVille["nbHab"] #Revenu max depensable par l'ensemble des habitants  
     Qmax = hab*4
@@ -333,12 +334,16 @@ while M == '':
             MAJ()
     if m:
         McDo.recolte()
+        for i in McDo.newResto:
+            McDo.epargne -= McDo.dicProfit[i]*impotprofit
         avantM = McDo.epargne
         print("McDo a recolte ",round(McDo.profit),"€, paye",round((1-impotprofit)*(McDo.profit)),"€ et a maintenant " ,round(McDo.epargne),"€")
         McDo.impots()
         print("McDo a paye ",round(-McDo.epargne + avantM),"€ aux impots et a maintenant ",round(McDo.epargne),"€")
     if k:
         Quick.recolte()
+        for i in Quick.newResto:
+            Quick.epargne -= Quick.dicProfit[i]*impotprofit
         print("Quick a recolte ",round(Quick.profit),"€, paye",round((1-impotprofit)*(Quick.profit)),"€ et a maintenant " ,round(Quick.epargne),"€")        
         avantQ = Quick.epargne
         Quick.impots()

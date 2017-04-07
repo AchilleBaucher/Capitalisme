@@ -281,12 +281,12 @@ def rectangle(ListeDictMcDo,ListeDictQuick):#,SauvegardeDictionnaireMcDo,Sauvega
            # if int(SauvegardeDictionnaireMcDo[nomVille])!=int(DictMcDo[nomVille]):
             f#or a in range(int(SauvegardeDictionnaireMcDo[nomVille]),int(DictMcDo[nomVille])):
             if h!=0:
-                Emplacementx=(xhaut+xbas)/2+2
-                Emplacementy=(yhaut+ybas)/2+2
+                Emplacementx=(xhaut+xbas)/2+3
+                Emplacementy=(yhaut+ybas)/2+3
                 
                 canvas.create_rectangle(Emplacementx, Emplacementy, Emplacementx+5, Emplacementy+5,fill = "yellow")
                 if h > 1:
-                    canvas.create_text(Emplacementx, Emplacementy,text=h,fill = 'yellow')
+                    canvas.create_text(Emplacementx, Emplacementy,text=h,fill = 'black')
                         
             nomVille2 = Villes[i][1]
             p = int(DictQuick[nomVille2])
@@ -298,8 +298,8 @@ def rectangle(ListeDictMcDo,ListeDictQuick):#,SauvegardeDictionnaireMcDo,Sauvega
             
                         #for j in range(SauvegardeDictionnaireQuick[k],DictQuick[k]):
             
-                Emplacementx=(xhaut+xbas)/2-2
-                Emplacementy=(yhaut+ybas)/2-2
+                Emplacementx=(xhaut+xbas)/2-3
+                Emplacementy=(yhaut+ybas)/2-3
                 canvas.create_rectangle(Emplacementx, Emplacementy, Emplacementx+5, Emplacementy+5, fill = "red")    
                 
                 if p > 1:
