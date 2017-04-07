@@ -53,8 +53,8 @@ class Siege:
         biff = 0
         for ville in self.dicProfit:
             biff += self.dicProfit[ville]
-        self.profit = biff
-        self.epargne = self.epargne+ biff*impotprofit
+        self.profit = biff -somme([self.dicProfit[i] for i in self.newResto ])
+        self.epargne = self.epargne+ self.profit*impotprofit
 
     def desimp(self):
         """Desimplante et ajoute des malus si necesaire"""
@@ -112,6 +112,12 @@ McDo = Siege("McDo",pVM,dic,dic,CompteM,0.99)
 Quick = Siege("Quick",pVK,dic,dic,CompteQ,0.98)
 
 #FONCTIONS
+def somme(l):
+    b = 0
+    for i in l:
+        b+=i
+    return b
+
 def EmplCool(dicScore):
     """Renvoie la liste des villes dans lesquelles recevoir un restaurant serait avantageux"""
     dicEmplCool = dict()
@@ -267,7 +273,7 @@ dicmap[0] = copy.deepcopy(caca)
 
 
 retMcDo = 0
-retQuick = 1
+retQuick = 0
 modif = input("Modifier parametres, oui ou non?")
 if modif == 'o' or modif == 'oui':
     retMcDo = int(input("Le retard du McDo sera de:"))
@@ -334,17 +340,17 @@ while M == '':
             MAJ()
     if m:
         McDo.recolte()
-        for i in McDo.newResto:
-            McDo.epargne -= McDo.dicProfit[i]*impotprofit
+        #for i in McDo.newResto:
+            #McDo.epargne -= McDo.dicProfit[i]*impotprofit
         avantM = McDo.epargne
-        print("McDo a recolte ",round(McDo.profit),"€, paye",round((1-impotprofit)*(McDo.profit)),"€ et a maintenant " ,round(McDo.epargne),"€")
+        print("McDo a recolte ",round(McDo.profit),"€, est impose sur son profit de",round((1-impotprofit)*(McDo.profit)),"€ et a maintenant " ,round(McDo.epargne),"€")
         McDo.impots()
         print("McDo a paye ",round(-McDo.epargne + avantM),"€ aux impots et a maintenant ",round(McDo.epargne),"€")
     if k:
         Quick.recolte()
-        for i in Quick.newResto:
-            Quick.epargne -= Quick.dicProfit[i]*impotprofit
-        print("Quick a recolte ",round(Quick.profit),"€, paye",round((1-impotprofit)*(Quick.profit)),"€ et a maintenant " ,round(Quick.epargne),"€")        
+        #for i in Quick.newResto:
+            #Quick.epargne -= Quick.dicProfit[i]*impotprofit
+        print("Quick a recolte ",round(Quick.profit),"€, est impose sur son profit de",round((1-impotprofit)*(Quick.profit)),"€ et a maintenant " ,round(Quick.epargne),"€")        
         avantQ = Quick.epargne
         Quick.impots()
         print("Quick a paye ",round(-Quick.epargne + avantQ),"€ aux impots et a maintenant ",round(Quick.epargne),"€")
