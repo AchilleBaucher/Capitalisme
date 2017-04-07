@@ -3,6 +3,7 @@ import random
 import copy
 import time
 
+compteur = 0
 #Page
 Pageprincipale = Tk()
 Pageprincipale.geometry ("1200x900+65+50")
@@ -282,7 +283,7 @@ def rectangle(ListeDictMcDo,ListeDictQuick):#,SauvegardeDictionnaireMcDo,Sauvega
             f#or a in range(int(SauvegardeDictionnaireMcDo[nomVille]),int(DictMcDo[nomVille])):
             if h!=0:
                 Emplacementx=(xhaut+xbas)/2+3
-                Emplacementy=(yhaut+ybas)/2+3
+                Emplacementy=(yhaut+ybas)/2-3
                 
                 canvas.create_rectangle(Emplacementx, Emplacementy, Emplacementx+5, Emplacementy+5,fill = "yellow")
                 if h > 1:
@@ -299,7 +300,7 @@ def rectangle(ListeDictMcDo,ListeDictQuick):#,SauvegardeDictionnaireMcDo,Sauvega
                         #for j in range(SauvegardeDictionnaireQuick[k],DictQuick[k]):
             
                 Emplacementx=(xhaut+xbas)/2-3
-                Emplacementy=(yhaut+ybas)/2-3
+                Emplacementy=(yhaut+ybas)/2+3
                 canvas.create_rectangle(Emplacementx, Emplacementy, Emplacementx+5, Emplacementy+5, fill = "red")    
                 
                 if p > 1:
@@ -365,5 +366,7 @@ while True:
     #SauvegardeDictionnaireMcDo=DictQuick
     Pageprincipale.update_idletasks()
     Pageprincipale.update()
-    print(ListeDictMcDo)
-    time.sleep(2)
+    #print(ListeDictMcDo)
+    compteur += 1
+    print(compteur)
+    time.sleep(1)

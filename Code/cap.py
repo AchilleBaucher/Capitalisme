@@ -22,16 +22,17 @@ moisAm = 12
 moisnul = 10000
 w = 0.3
 coutMenu = 5
-coutEntretien = 30000
+coutEntretien = 50000
 coutImplantation = 800000
 CompteM = 800000
 CompteQ = 800000
 impotprofit = 0.67
 impotsiege = 0.93
+adminrest = 100000
 #ela = 1.5 #par rapport à moi
 #elc = 0.5     # par rapport à l'autre
 #para=11
-pref = 50.0
+pref = 50
 #CLASSES
 
 class Siege:
@@ -54,7 +55,7 @@ class Siege:
         for ville in self.dicProfit:
             biff += self.dicProfit[ville]
         self.profit = biff -somme([self.dicProfit[i] for i in self.newResto ])
-        self.epargne = self.epargne+ self.profit*impotprofit
+        self.epargne = self.epargne+ self.profit*impotprofit #- adminrest*(self.nbR-len(self.newResto))
 
     def desimp(self):
         """Desimplante et ajoute des malus si necesaire"""
