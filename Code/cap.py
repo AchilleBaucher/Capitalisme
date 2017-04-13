@@ -138,39 +138,70 @@ def changeenset(dic):
         se.add(a)
     return se
 
-def ph(pa):
-    return (1 - 1/(pa+1))**2
+def pt(p): #Impact du prix total
+    P = 0.65
+    s = 4.6
+    Q = 9.5
+    return (P/((p/Q)**s+P))
 
-def pm(pa):
-    return (1/(pa+1))**2
+def ph(pa): #Impact du prix de l'autre marque
+    P = 0.65
+    s = 4.6
+    Q = 9.5
+    return (1-P/((pa/Q)**s+P))
 
-def nh(nb):
-    return (1/(nb+1))
-    
-def nm(na):
-    return (1 - 1/(na+1))
+def pm(pa): #Impact du prix de la marque
+    P = 0.65
+    s = 4.6
+    Q = 9.5
+    return (P/((pa/Q)**s+P))
 
-def prefe(p):
-    return (0.8*math.atan(p/50 -1)*100/math.pi + 50)
+def nt(na): #Impact du nombre total de restaurants
+    P = 0.74
+    Q = 0.35
+    s = 1.4
+    return (1 - P/(Q*na**s+P))
+
+def nh(nb): #Impact du nombre de restaurants de l'autre marque
+    P = 0.74
+    Q = 0.35
+    s = 1.4
+    return (P/(Q*nb**s+P))   
+def nm(na): #Impact de son propre nombre de restaurants
+    P = 0.74
+    Q = 0.35
+    s = 1.4
+    return (1 - P/(Q*na**s+P))
+
+def prefe(p): #Impact de la préférence
+    return (0.8*math.atan(p/50 -1)*100/math.pi + 50)/100
+
+def dens(d):
+    P = 3.15
+    Q = 1.05
+    s = 1.25
+    d = d/1000
+    return (1-P/((Q*d)**s+P)) 
 
 def fonctionDemande(carte,ville):
     dicVille = copy.deepcopy(carte[ville])
     Nm = dicVille["McDo"] #Nombre de McDo dans la ville
     Nk = dicVille["Quick"] # ref Quick
-    if Nm + Nk == 0:
+    if Nm + Nk == 0: #pour eviter les divisions par zero futures
         return 0,0,0
 
     S = dicVille["Rsurface"] #Qui est la racine carree de la surface
     hab = dicVille["nbHab"] #Revenu max depensable par l'ensemble des habitants  
-    Qmax = hab*4
-    prefM = (ph(Quick.pv)*pm(McDo.pv)*prefe(pref)/(ph(McDo.pv)*pm(Quick.pv)*prefe(100-pref)+ph(Quick.pv)*pm(McDo.pv)*prefe(pref)))
-    prefQ = 1-prefM #Preference des gens pour le quick ou le mcdo
-    #print("Preference pour mcdo:",prefM," ,preference pour quick:",prefQ)
+    Qmax = hab*10
+
     pM = (nh(Nk)*nm(Nm)*ph(Quick.pv)*pm(McDo.pv)*prefe(pref)/(nh(Nm)*nm(Nk)*ph(McDo.pv)*pm(Quick.pv)*prefe(100-pref)+nh(Nk)*nm(Nm)*ph(Quick.pv)*pm(McDo.pv)*prefe(pref)))
     pQ = 1-pM #Part du marche de quick ou mcdo dans la ville
-    #qM = pM*Qmax*(1-1.05/(1.05+0.9*Nm**2))*(1-S*0.03)*(math.atan(10-McDo.pv/1.3)*1/math.pi+0.5)
-    #qK = pQ*Qmax*(1-1.05/(1.05+0.9*Nk**2))*(1-S*0.03)*(math.atan(10-Quick.pv/1.3)*1/math.pi+0.5)
-    qT = Qmax*(1-1.05/(1.05+0.9*(2*(prefM*Nm+prefQ*Nk))**2))*(1-S*0.03)*(math.atan(10-(McDo.pv*pM+Quick.pv*pQ)/1.3)*1/math.pi+0.5)
+    
+    prefM = (ph(Quick.pv)*pm(McDo.pv)*prefe(pref)/(ph(McDo.pv)*pm(Quick.pv)*prefe(100-pref)+ph(Quick.pv)*pm(McDo.pv)*prefe(pref)))
+    prefQ = 1-prefM #Preference des gens pour le quick ou le mcdo
+
+    qT = Qmax*(nt(2*(prefM*Nm+prefQ*Nk)))*(dens(hab/S))*(pt(McDo.pv*pM+Quick.pv*pQ))
+
     qM = qT*pM
     qK = qT*pQ
     return (qM,qK,qT) 
@@ -294,6 +325,7 @@ while M == '':
         k = True
 
     al = random.random()
+    print(al)
     if al > 1/2:
         if m:
             if k:

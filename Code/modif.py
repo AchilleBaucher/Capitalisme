@@ -2,22 +2,17 @@
 import math
 
 #POUR AJOUTER DES DONNEES:
-
-DONNEE = ",3000"
 fichier = open("villes.txt")
 liste_lignes = fichier.readlines()
 new_liste = []
+b = 0
 for i in liste_lignes:
-	a = i[:-1] + DONNEE
-	new_liste.append(a)
-fichier.close()
-print(new_liste[0])
-
-fichier = open("villes.txt","wcd")
+	liste_de_mots = i.strip().split(",")
+	new_liste.append(int(liste_de_mots[2])/float(liste_de_mots[3])/1000)
 for i in new_liste:
-	fichier.write(i)
-	fichier.write("\n")
-fichier.close
+	b += i
+print(new_liste)
+print(b/len(new_liste))
 
 
 #POUR MODIFIER DES ATTRIBUTS
