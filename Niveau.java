@@ -60,4 +60,7 @@ public class Niveau{
 		}
 		return false;
 	}
+	public boolean assCaisse(Position p){
+		return niveau.addCaisse(p);
+	}
 }

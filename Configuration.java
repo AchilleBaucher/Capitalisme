@@ -59,6 +59,16 @@ public class Configuration{
 	}
 
 	public boolean bougerJoueurVers(Direction d){
-		
+		if(estVide(Joueur.getPosition().add(d))){
+
+		}
+		return false;
 	}
+	public boolean addCaisse(Position p){
+		return niveau.addCaisse(p);
+	}
+	public boolean victoire(){
+
+	}
+	
 }
