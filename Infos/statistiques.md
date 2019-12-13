@@ -1,14 +1,14 @@
-#Ici sont les statistques
+# Ici sont les statistques
 
-##Données
+## Données
 
 ![Evo](http://mfs0.cdnsw.com/fs/Root/3hcm0-evolution_graphique.png "Evolution")
 * Un mcDo pour 53000 personnes en france
 * 90% de franchises
 
-##Scandales
+## Scandales
 	
-###Quick:
+### Quick:
 
 * Tête de poulet frit / 25/04/2016
 * Adolescent mort de son repas / 18/02/2011
@@ -20,7 +20,7 @@
 * Poursuite de Quick sur un de ses salariés/ 03/01/2013
 * Des os retrouvés dans un double cheese/ 15/08/2014
 	
-###Mc Do:
+### Mc Do:
 * Affiche faisant scandale/ 11/08/2015
 * Fabrication de frites/ 10/03/2015
 * Mc Do ne paye pas ses impots/ 26/02/2015
